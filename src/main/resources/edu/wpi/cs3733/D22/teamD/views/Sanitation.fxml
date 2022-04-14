@@ -22,7 +22,7 @@
             <children>
                 <HBox prefHeight="46.0" prefWidth="301.0">
                     <children>
-                        <VBox id="foreground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-background-color: #FFFEFE; -fx-background-radius: 7.5;">
+                        <VBox id="foreground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="300.0" style="-fx-background-color: #FFFEFE; -fx-background-radius: 7.5;">
                             <children>
                                 <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="51.0" prefWidth="100.0" style="-fx-background-color: #4B5B81 #4B5B81; -fx-background-radius: 7.5 7.5 0 0;" VBox.vgrow="ALWAYS">
                                     <children>
@@ -33,9 +33,9 @@
                                         </Text>
                                     </children>
                                 </VBox>
-                                <VBox maxHeight="-Infinity" prefHeight="220.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                <VBox maxHeight="-Infinity" prefHeight="304.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <VBox maxHeight="-Infinity" prefHeight="220.0" prefWidth="307.0" VBox.vgrow="ALWAYS">
+                                        <VBox maxHeight="-Infinity" prefHeight="283.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                                             <children>
                                                 <Text id="label" fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Sanitation Service:">
                                                     <VBox.margin>
@@ -83,6 +83,38 @@
                                                         <URL value="@../assets/style.css" />
                                                     </stylesheets>
                                                 </JFXComboBox>
+                                    <Text id="label" fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Requester:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="30.0" right="30.0" top="15.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <JFXComboBox id="jButton" fx:id="requestBox" focusColor="#059da7" prefHeight="34.0" prefWidth="250.0" promptText="    Select" unFocusColor="#4b5b81">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <stylesheets>
+                                          <URL value="@../assets/style.css" />
+                                       </stylesheets>
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
+                                    <Text id="label" strokeType="OUTSIDE" strokeWidth="0.0" text="Assignee:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="30.0" right="30.0" top="15.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <JFXComboBox id="jButton" fx:id="assignBox" focusColor="#059da7" prefHeight="34.0" prefWidth="250.0" promptText="    Select" unFocusColor="#4b5b81">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <stylesheets>
+                                          <URL value="@../assets/style.css" />
+                                       </stylesheets>
+                                       <VBox.margin>
+                                          <Insets left="30.0" right="30.0" />
+                                       </VBox.margin>
+                                    </JFXComboBox>
                                             </children>
                                         </VBox>
                                     </children>

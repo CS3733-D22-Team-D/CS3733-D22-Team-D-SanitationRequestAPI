@@ -48,6 +48,8 @@ public class SanitationController extends AppController implements Initializable
   @FXML private JFXComboBox<String> locationBox;
   @FXML private JFXComboBox<String> priorityBox;
   @FXML private JFXComboBox<String> sanitationBox;
+  @FXML private JFXComboBox<String> requestBox;
+  @FXML private JFXComboBox<String> assignBox;
 
   /* Other JFX Objects */
   @FXML private VBox sceneBox;
@@ -156,7 +158,9 @@ public class SanitationController extends AppController implements Initializable
   }
 
   @FXML
-  void quitProgram(ActionEvent event) {}
+  void quitProgram(ActionEvent event) {
+    super.quitProgram();
+  }
 
   @FXML
   void saveToCSV(ActionEvent event) {
@@ -174,7 +178,7 @@ public class SanitationController extends AppController implements Initializable
     pendingRequests.getItems().add(request);
     return true;
 
-    /* remove security clearance ===
+    /* remove security clearance
     boolean hasClearance = false;
     try {
       hasClearance = sanitationRequestDAO.add(request);
