@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.D22.teamD.request;
 
-import edu.wpi.cs3733.D22.teamD.backend.TableHandler;
-import edu.wpi.cs3733.D22.teamD.backend.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableHandler;
+import edu.wpi.cs3733.D22.teamD.table.TableObject;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.D22.teamD.backend;
+package edu.wpi.cs3733.D22.teamD.table;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
