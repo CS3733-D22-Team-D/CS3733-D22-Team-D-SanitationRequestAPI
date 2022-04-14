@@ -8,10 +8,10 @@ import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableHelper;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -53,16 +53,16 @@ public class SanitationController extends UIController {
   @FXML private Button submitButton;
   @FXML private StackPane windowContents;
 
-  DAO<SanitationRequest> sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
-  DAO<Location> locationDAO = DAOPouch.getLocationDAO();
+  DAO<SanitationRequest> sanitationRequestDAO;
+  DAO<Location> locationDAO;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
     try {
       DAOPouch.init();
-    } catch (SQLException | IOException e) {
-      throw new RuntimeException(e);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     onClearClicked();
@@ -70,11 +70,15 @@ public class SanitationController extends UIController {
     init.initializeInputs();
     init.initializeTable();
 
+    sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
+    locationDAO = DAOPouch.getLocationDAO(); // Initializing both tables
+
     try {
-      pendingRequests.getItems().addAll(sanitationRequestDAO.getAll());
+      List<SanitationRequest> requestList = sanitationRequestDAO.getAll();
+      pendingRequests.getItems().addAll(requestList);
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("Something went wrong making Patient Transport Req table");
+      System.out.println("Something went wrong making Sanitation Req table");
     }
   }
 
