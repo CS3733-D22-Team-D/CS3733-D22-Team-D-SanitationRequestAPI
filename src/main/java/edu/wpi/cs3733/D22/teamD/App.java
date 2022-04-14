@@ -26,7 +26,7 @@ public class App extends Application {
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.getScene().setRoot(root);
-    primaryStage.setTitle("Team-D Sanitation Services");
+    primaryStage.setTitle("Team-D Sanitation Services API");
     primaryStage.show();
   }
 
