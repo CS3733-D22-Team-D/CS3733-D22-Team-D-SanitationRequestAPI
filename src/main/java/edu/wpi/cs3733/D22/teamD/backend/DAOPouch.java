@@ -26,6 +26,7 @@ public class DAOPouch {
   public static DAO<Location> getLocationDAO() {
     return locationDAO;
   }
+
   public static DAO<Employee> getEmployeeDAO() {
     return employeeDAO;
   }

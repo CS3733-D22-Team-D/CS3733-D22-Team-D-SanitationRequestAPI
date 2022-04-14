@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
 import com.opencsv.CSVReader;
+import edu.wpi.cs3733.D22.teamD.entities.Employee;
 import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableObject;
@@ -18,6 +19,7 @@ public class csvLoader {
   static {
     filenames.put("SanitationRequest", new SanitationRequest());
     filenames.put("TowerLocations", new Location());
+    filenames.put("Employee", new Employee());
   }
 
   private csvLoader() {}

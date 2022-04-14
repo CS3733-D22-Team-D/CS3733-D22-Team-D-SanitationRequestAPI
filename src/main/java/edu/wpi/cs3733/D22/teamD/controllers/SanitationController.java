@@ -3,6 +3,7 @@ package edu.wpi.cs3733.D22.teamD.controllers;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.entities.Employee;
 import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
@@ -59,6 +60,7 @@ public class SanitationController extends AppController implements Initializable
 
   DAO<SanitationRequest> sanitationRequestDAO;
   DAO<Location> locationDAO;
+  DAO<Employee> employeeDAO;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -71,9 +73,11 @@ public class SanitationController extends AppController implements Initializable
     SanitationServiceInitializer init = new SanitationServiceInitializer();
 
     sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
-    locationDAO = DAOPouch.getLocationDAO(); // Initializing both tables
+    locationDAO = DAOPouch.getLocationDAO();
+    employeeDAO = DAOPouch.getEmployeeDAO();
 
     try {
+      // POPULATES TABLE
       List<SanitationRequest> requestList = sanitationRequestDAO.getAll();
       pendingRequests.getItems().addAll(requestList);
     } catch (Exception e) {
@@ -102,12 +106,20 @@ public class SanitationController extends AppController implements Initializable
    * @param locations list of locations
    * @return a list of long names as strings
    */
-  protected List<String> getAllLongNames(List<Location> locations) {
+  private List<String> getAllLongNames(List<Location> locations) {
     List<String> names = new ArrayList<>();
     for (Location loc : locations) {
       names.add(loc.getLongName());
     }
     return names;
+  }
+
+  private List<String> getAllNodeIDs(List<Employee> employees) {
+    List<String> IDs = new ArrayList<>();
+    for (Employee e : employees) {
+      IDs.add(e.getNodeID());
+    }
+    return IDs;
   }
 
   @FXML
@@ -211,9 +223,10 @@ public class SanitationController extends AppController implements Initializable
           FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
       sanitationBox.setItems(
           FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
-
       locationBox.setItems(
           (FXCollections.observableArrayList(getAllLongNames(locationDAO.getAll()))));
+      requestBox.setItems((FXCollections.observableArrayList(getAllNodeIDs(employeeDAO.getAll()))));
+      assignBox.setItems((FXCollections.observableArrayList(getAllNodeIDs(employeeDAO.getAll()))));
     }
   }
 }
