@@ -32,8 +32,6 @@ import javafx.stage.Stage;
 
 public class SanitationController implements Initializable {
 
-  // TODO: FIX SAVE CSV, ADDED REQUESTS ARE NOT BEING ADDED TO CSV
-
   /* Table and table helper */
   @FXML private TableView<SanitationRequest> pendingRequests;
   private TableHelper<SanitationRequest> helper;
@@ -188,7 +186,7 @@ public class SanitationController implements Initializable {
     fileSys.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
     File csv = fileSys.showSaveDialog(window);
     try {
-      csvSaver.save(new SanitationRequest(), csv.getAbsolutePath()); // TODO: FIX THIS
+      csvSaver.save(new SanitationRequest(), csv.getAbsolutePath());
     } catch (Exception e) {
       System.err.println("Unable to save to CSV");
     }
