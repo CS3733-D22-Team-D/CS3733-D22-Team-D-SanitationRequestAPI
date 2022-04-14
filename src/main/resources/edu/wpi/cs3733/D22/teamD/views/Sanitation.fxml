@@ -88,11 +88,25 @@
                                 </VBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="308.0" style="-fx-background-radius: 7.5;">
                                     <children>
-                                        <Button id="defaultButton" fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#onClearClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #C1C5D4;" stylesheets="@../assets/style.css" text="Clear" textFill="WHITE" />
+                                        <Button id="defaultButton" fx:id="clearButton" mnemonicParsing="false" onMouseClicked="#onClearClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #C1C5D4;" stylesheets="@../assets/style.css" text="Clear" textFill="WHITE">
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color opacity="0.15000000596046448" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect></Button>
                                         <Button id="defaultButton" fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#onSubmitClicked" prefHeight="35.0" prefWidth="90.0" style="-fx-background-color: #059DA7;" stylesheets="@../assets/style.css" text="Submit" textFill="WHITE">
                                             <HBox.margin>
                                                 <Insets left="20.0" right="30.0" />
                                             </HBox.margin>
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color opacity="0.15000000596046448" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                                         </Button>
                                     </children>
                                     <VBox.margin>
@@ -185,6 +199,15 @@
                     <top>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="528.0" style="-fx-background-color: #012D5A;" BorderPane.alignment="CENTER">
                             <children>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="91.0">
+                           <children>
+                              <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quitProgram" prefHeight="25.0" prefWidth="48.0" style="-fx-background-color: #059DA7; -fx-border-radius: 7.5;" text="Quit" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sanitation Services" HBox.hgrow="ALWAYS">
@@ -192,7 +215,7 @@
                                                 <Font name="System Bold" size="28.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets left="-10.0" right="50.0" />
+                                                <Insets right="150.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>

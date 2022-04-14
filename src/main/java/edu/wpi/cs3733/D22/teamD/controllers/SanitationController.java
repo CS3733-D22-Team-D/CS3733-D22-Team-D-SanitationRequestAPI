@@ -30,6 +30,8 @@ public class SanitationController {
 
   @FXML private Button csvButton;
 
+  @FXML private Button quitButton;
+
   @FXML private JFXComboBox<?> locationBox;
 
   @FXML private TableView<?> pendingRequests;
@@ -49,6 +51,9 @@ public class SanitationController {
 
   @FXML
   void onSubmitClicked(MouseEvent event) {}
+
+  @FXML
+  void quitProgram(ActionEvent event) {}
 
   @FXML
   void saveToCSV(ActionEvent event) {}
