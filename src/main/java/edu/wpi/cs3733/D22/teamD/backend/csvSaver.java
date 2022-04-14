@@ -17,7 +17,7 @@ public class csvSaver {
     csvLoader.filenames.forEach(
         (k, v) -> {
           try {
-            save(v, "src/main/resources/" + k + ".csv");
+            save(v, k + "_save.csv");
           } catch (IOException e) {
             e.printStackTrace();
           } catch (SQLException e) {
