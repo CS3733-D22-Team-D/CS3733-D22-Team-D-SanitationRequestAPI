@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -52,6 +53,7 @@ public class SanitationController extends UIController {
   @FXML private VBox sceneBox;
   @FXML private Button submitButton;
   @FXML private StackPane windowContents;
+  @FXML private Label errorLabel;
 
   DAO<SanitationRequest> sanitationRequestDAO;
   DAO<Location> locationDAO;
@@ -113,7 +115,8 @@ public class SanitationController extends UIController {
 
       isALocation = location.getAttribute(7).equals(roomID);
       if (isALocation) {
-
+        errorLabel.setText("");
+        onClearClicked();
         boolean hadClearance =
             addItem(
                 new SanitationRequest(
@@ -121,15 +124,18 @@ public class SanitationController extends UIController {
 
         if (!hadClearance) {
           // throw error saying that the user does not have permission to make the request.
+          errorLabel.setText("Error: Permission Denied");
         }
       } else {
         // throw an error that the location does not exist
+        errorLabel.setText("Error: Unknown Location");
       }
     } else {
       //  throw error message that all fields need to be filled
+      errorLabel.setText("Error: One or more fields left empty");
     }
     // clear the fields
-    onClearClicked();
+    // onClearClicked();
   }
 
   @FXML

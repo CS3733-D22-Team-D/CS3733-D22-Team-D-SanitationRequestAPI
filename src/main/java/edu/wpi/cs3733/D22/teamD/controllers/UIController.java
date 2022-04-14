@@ -16,7 +16,7 @@ public class UIController extends AppController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    DAO<Location> dao = DAOPouch.getLocationDAO();
+    DAO<Location> dao = DAOPouch.getLocationDAO(); //TODO: this is null for some reason
     try {
       this.locations = dao.getAll();
     } catch (Exception e) {
