@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
 import com.opencsv.CSVReader;
+import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableObject;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class csvLoader {
 
   static {
     filenames.put("SanitationRequest", new SanitationRequest());
+    filenames.put("TowerLocations", new Location());
   }
 
   private csvLoader() {}

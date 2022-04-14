@@ -8,6 +8,7 @@ import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableHelper;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,6 +59,12 @@ public class SanitationController extends UIController {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
+    try {
+      DAOPouch.init();
+    } catch (SQLException | IOException e) {
+      throw new RuntimeException(e);
+    }
+
     onClearClicked();
     SanitationServiceInitializer init = new SanitationServiceInitializer();
     init.initializeInputs();
