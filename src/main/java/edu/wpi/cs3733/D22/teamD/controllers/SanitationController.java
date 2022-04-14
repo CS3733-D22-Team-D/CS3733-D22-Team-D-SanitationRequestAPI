@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.D22.teamD.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
+import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
+import edu.wpi.cs3733.D22.teamD.table.TableHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,42 +13,44 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SanitationController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-  @FXML private TableColumn<?, String> Assignee;
+public class SanitationController extends UIController {
 
-  @FXML private TableColumn<?, String> Priority;
+  /* Table and table helper */
+  @FXML private TableView<String> pendingRequests;
+  private TableHelper<SanitationRequest> helper;
 
-  @FXML private TableColumn<?, String> ReqID;
+  /* Table Cols */
+  @FXML private TableColumn<SanitationRequest, String> Assignee;
+  @FXML private TableColumn<SanitationRequest, String> Priority;
+  @FXML private TableColumn<SanitationRequest, String> ReqID;
+  @FXML private TableColumn<SanitationRequest, String> Requester;
+  @FXML private TableColumn<SanitationRequest, String> RoomID;
+  @FXML private TableColumn<SanitationRequest, String> Service;
+  @FXML private TableColumn<SanitationRequest, String> Status;
 
-  @FXML private TableColumn<?, String> Requester;
-
-  @FXML private TableColumn<?, String> RoomID;
-
-  @FXML private TableColumn<?, String> Service;
-
-  @FXML private TableColumn<?, String> Status;
-
+  /* Buttons */
   @FXML private Button clearButton;
-
   @FXML private Button csvButton;
-
   @FXML private Button quitButton;
 
+  /* JFX Combo Box */
   @FXML private JFXComboBox<String> locationBox;
-
-  @FXML private TableView<String> pendingRequests;
-
   @FXML private JFXComboBox<String> priorityBox;
-
   @FXML private JFXComboBox<String> sanitationBox;
 
+
+  /* Other JFX Objects */
   @FXML private VBox sceneBox;
-
   @FXML private Button submitButton;
-
   @FXML private StackPane windowContents;
 
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+  }
   @FXML
   void onClearClicked(MouseEvent event) {}
 
@@ -57,4 +62,5 @@ public class SanitationController {
 
   @FXML
   void saveToCSV(ActionEvent event) {}
+
 }
