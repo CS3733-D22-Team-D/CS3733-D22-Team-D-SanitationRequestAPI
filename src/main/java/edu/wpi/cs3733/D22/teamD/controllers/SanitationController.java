@@ -66,7 +66,8 @@ public class SanitationController extends AppController implements Initializable
     } catch (Exception e) {
       e.printStackTrace();
     }
-
+    onClearClicked();
+    SanitationServiceInitializer init = new SanitationServiceInitializer();
 
     sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
     locationDAO = DAOPouch.getLocationDAO(); // Initializing both tables
@@ -79,8 +80,6 @@ public class SanitationController extends AppController implements Initializable
       System.out.println("Something went wrong making Sanitation Req table");
     }
 
-    onClearClicked();
-    SanitationServiceInitializer init = new SanitationServiceInitializer();
     try {
       init.initializeInputs();
     } catch (SQLException e) {
