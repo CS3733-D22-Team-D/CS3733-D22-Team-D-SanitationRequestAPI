@@ -105,6 +105,8 @@ public class SanitationController implements Initializable {
     sanitationBox.setValue("");
     priorityBox.setValue("");
     locationBox.setValue("");
+    requestBox.setValue("");
+    assignBox.setValue("");
   }
 
   /**
@@ -155,25 +157,17 @@ public class SanitationController implements Initializable {
       if (isALocation) {
         errorLabel.setText("");
         onClearClicked();
-        boolean hadClearance =
-            addItem(
-                new SanitationRequest(
-                    priority, roomID, requesterID, assigneeID, sanitationType, status));
+        addItem(
+            new SanitationRequest(
+                priority, roomID, requesterID, assigneeID, sanitationType, status));
 
-        if (!hadClearance) {
-          // throw error saying that the user does not have permission to make the request.
-          errorLabel.setText("Error: Permission Denied");
-        }
       } else {
-        // throw an error that the location does not exist
         errorLabel.setText("Error: Unknown Location");
       }
     } else {
       //  throw error message that all fields need to be filled
       errorLabel.setText("Error: One or more fields left empty");
     }
-    // clear the fields
-    // onClearClicked();
   }
 
   @FXML
@@ -207,9 +201,13 @@ public class SanitationController implements Initializable {
   }
 
   /** Adds new sanitationRequest to table of pending requests * */
-  private boolean addItem(SanitationRequest request) {
+  private void addItem(SanitationRequest request) {
+    try {
+      sanitationRequestDAO.add(request);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
     pendingRequests.getItems().add(request);
-    return true;
   }
 
   public enum SanitationTypes {

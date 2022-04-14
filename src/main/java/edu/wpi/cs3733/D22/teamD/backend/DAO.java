@@ -62,13 +62,8 @@ public class DAO<T extends TableObject> {
    * @param type : the object you wish to update
    * @throws SQLException
    */
-  public boolean update(T type) throws SQLException {
-    boolean hasClearance = SecurityController.permissionToUpdate(type);
-    if (hasClearance) {
-      orm.update(type);
-    }
-
-    return hasClearance;
+  public void update(T type) throws SQLException {
+    orm.update(type);
   }
 
   /**
@@ -77,12 +72,8 @@ public class DAO<T extends TableObject> {
    * @param type : the TableObject you wish to delete
    * @throws SQLException
    */
-  public boolean delete(T type) throws SQLException {
-    boolean hasClearance = SecurityController.permissionToDelete(type);
-    if (hasClearance) {
-      orm.delete(type.getAttribute(1));
-    }
-    return hasClearance;
+  public void delete(T type) throws SQLException {
+    orm.delete(type.getAttribute(1));
   }
 
   /**
@@ -91,12 +82,8 @@ public class DAO<T extends TableObject> {
    * @param type
    * @throws SQLException
    */
-  public boolean add(T type) throws SQLException {
-    boolean hasClearance = SecurityController.permissionToAdd(type);
-    if (hasClearance) {
-      orm.add(type);
-    }
-    return hasClearance;
+  public void add(T type) throws SQLException {
+    orm.add(type);
   }
 
   /**
