@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -24,7 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class SanitationController extends UIController {
+public class SanitationController extends AppController implements Initializable {
 
   /* Table and table helper */
   @FXML private TableView<SanitationRequest> pendingRequests;
@@ -60,17 +61,12 @@ public class SanitationController extends UIController {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    super.initialize(location, resources);
     try {
       DAOPouch.init();
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    onClearClicked();
-    SanitationServiceInitializer init = new SanitationServiceInitializer();
-    init.initializeInputs();
-    init.initializeTable();
 
     sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
     locationDAO = DAOPouch.getLocationDAO(); // Initializing both tables
@@ -82,6 +78,15 @@ public class SanitationController extends UIController {
       e.printStackTrace();
       System.out.println("Something went wrong making Sanitation Req table");
     }
+
+    onClearClicked();
+    SanitationServiceInitializer init = new SanitationServiceInitializer();
+    try {
+      init.initializeInputs();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    init.initializeTable();
   }
 
   @FXML
@@ -89,6 +94,20 @@ public class SanitationController extends UIController {
     sanitationBox.setValue("");
     priorityBox.setValue("");
     locationBox.setValue("");
+  }
+
+  /**
+   * gets all long names from a list of locations
+   *
+   * @param locations list of locations
+   * @return a list of long names as strings
+   */
+  protected List<String> getAllLongNames(List<Location> locations) {
+    List<String> names = new ArrayList<>();
+    for (Location loc : locations) {
+      names.add(loc.getLongName());
+    }
+    return names;
   }
 
   @FXML
@@ -180,13 +199,14 @@ public class SanitationController extends UIController {
       helper.linkColumns(SanitationRequest.class);
     }
 
-    private void initializeInputs() {
+    private void initializeInputs() throws SQLException {
       priorityBox.setItems(
           FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
       sanitationBox.setItems(
           FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
 
-      locationBox.setItems((FXCollections.observableArrayList(getAllLongNames())));
+      locationBox.setItems(
+          (FXCollections.observableArrayList(getAllLongNames(locationDAO.getAll()))));
     }
   }
 }
