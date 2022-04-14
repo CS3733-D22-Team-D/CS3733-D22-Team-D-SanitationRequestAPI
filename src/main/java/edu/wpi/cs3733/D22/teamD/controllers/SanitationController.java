@@ -27,6 +27,8 @@ import javafx.scene.layout.VBox;
 
 public class SanitationController extends AppController implements Initializable {
 
+  // TODO: SAVE CSV method is not including added requests, The requests are not saving on quit
+
   /* Table and table helper */
   @FXML private TableView<SanitationRequest> pendingRequests;
   private TableHelper<SanitationRequest> helper;
@@ -114,10 +116,10 @@ public class SanitationController extends AppController implements Initializable
     return names;
   }
 
-  private List<String> getAllNodeIDs(List<Employee> employees) {
+  private List<String> getAllEmpNames(List<Employee> employees) {
     List<String> IDs = new ArrayList<>();
     for (Employee e : employees) {
-      IDs.add(e.getNodeID());
+      IDs.add(e.getNodeID() + " " + e.getFirstName() + " " + e.getLastName());
     }
     return IDs;
   }
@@ -127,8 +129,8 @@ public class SanitationController extends AppController implements Initializable
     if (allFieldsFilled()) {
       Request.Priority priority = Request.Priority.valueOf(priorityBox.getValue());
       String roomID = locationBox.getValue();
-      String requesterID = "null"; // SecurityController.getUser().getNodeID();
-      String assigneeID = "null";
+      String requesterID = requestBox.getValue(); // SecurityController.getUser().getNodeID();
+      String assigneeID = assignBox.getValue();
       String sanitationType = sanitationBox.getValue().toString();
       Request.RequestStatus status = Request.RequestStatus.REQUESTED;
 
@@ -225,8 +227,9 @@ public class SanitationController extends AppController implements Initializable
           FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
       locationBox.setItems(
           (FXCollections.observableArrayList(getAllLongNames(locationDAO.getAll()))));
-      requestBox.setItems((FXCollections.observableArrayList(getAllNodeIDs(employeeDAO.getAll()))));
-      assignBox.setItems((FXCollections.observableArrayList(getAllNodeIDs(employeeDAO.getAll()))));
+      requestBox.setItems(
+          (FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
+      assignBox.setItems((FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
     }
   }
 }
