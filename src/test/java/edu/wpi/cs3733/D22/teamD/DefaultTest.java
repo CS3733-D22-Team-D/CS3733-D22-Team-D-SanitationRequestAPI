@@ -2,7 +2,7 @@
 /* DO NOT DELETE THIS TEST */
 /*-------------------------*/
 
-package edu.wpi.teamname;
+package edu.wpi.cs3733.D22.teamD;
 
 import org.junit.Test;
 
