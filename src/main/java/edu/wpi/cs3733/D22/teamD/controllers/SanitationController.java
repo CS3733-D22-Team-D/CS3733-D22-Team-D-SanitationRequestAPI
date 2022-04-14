@@ -3,16 +3,19 @@ package edu.wpi.cs3733.D22.teamD.controllers;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.backend.csvSaver;
 import edu.wpi.cs3733.D22.teamD.entities.Employee;
 import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableHelper;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,10 +27,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class SanitationController extends AppController implements Initializable {
+public class SanitationController implements Initializable {
 
-  // TODO: SAVE CSV method is not including added requests, The requests are not saving on quit
+  // TODO: FIX SAVE CSV, ADDED REQUESTS ARE NOT BEING ADDED TO CSV
 
   /* Table and table helper */
   @FXML private TableView<SanitationRequest> pendingRequests;
@@ -173,12 +178,26 @@ public class SanitationController extends AppController implements Initializable
 
   @FXML
   void quitProgram(ActionEvent event) {
-    super.quitProgram();
+    csvSaver.saveAll();
+    if (sceneBox != null && sceneBox.getScene() != null) {
+      Stage window = (Stage) sceneBox.getScene().getWindow();
+      if (window != null) window.close();
+    }
+    Platform.exit();
+    System.exit(0);
   }
 
   @FXML
-  void saveToCSV(ActionEvent event) {
-    super.saveToCSV(new SanitationRequest());
+  void saveToCSV() {
+    FileChooser fileSys = new FileChooser();
+    Stage window = (Stage) sceneBox.getScene().getWindow();
+    fileSys.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+    File csv = fileSys.showSaveDialog(window);
+    try {
+      csvSaver.save(new SanitationRequest(), csv.getAbsolutePath()); // TODO: FIX THIS
+    } catch (Exception e) {
+      System.err.println("Unable to save to CSV");
+    }
   }
 
   private boolean allFieldsFilled() {
@@ -191,20 +210,6 @@ public class SanitationController extends AppController implements Initializable
   private boolean addItem(SanitationRequest request) {
     pendingRequests.getItems().add(request);
     return true;
-
-    /* remove security clearance
-    boolean hasClearance = false;
-    try {
-      hasClearance = sanitationRequestDAO.add(request);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    if (hasClearance) {
-      pendingRequests.getItems().add(request);
-    }
-    return hasClearance;
-     */
   }
 
   public enum SanitationTypes {
