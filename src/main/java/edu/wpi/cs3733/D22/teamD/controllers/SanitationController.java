@@ -8,6 +8,10 @@ import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
 import edu.wpi.cs3733.D22.teamD.table.TableHelper;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,11 +21,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class SanitationController extends UIController {
 
@@ -48,12 +47,10 @@ public class SanitationController extends UIController {
   @FXML private JFXComboBox<String> priorityBox;
   @FXML private JFXComboBox<String> sanitationBox;
 
-
   /* Other JFX Objects */
   @FXML private VBox sceneBox;
   @FXML private Button submitButton;
   @FXML private StackPane windowContents;
-
 
   DAO<SanitationRequest> sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
   DAO<Location> locationDAO = DAOPouch.getLocationDAO();
@@ -62,8 +59,18 @@ public class SanitationController extends UIController {
   public void initialize(URL location, ResourceBundle resources) {
     super.initialize(location, resources);
     onClearClicked();
+    SanitationServiceInitializer init = new SanitationServiceInitializer();
+    init.initializeInputs();
+    init.initializeTable();
 
+    try {
+      pendingRequests.getItems().addAll(sanitationRequestDAO.getAll());
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Something went wrong making Patient Transport Req table");
+    }
   }
+
   @FXML
   void onClearClicked() {
     sanitationBox.setValue("");
@@ -97,9 +104,9 @@ public class SanitationController extends UIController {
       if (isALocation) {
 
         boolean hadClearance =
-                addItem(
-                        new SanitationRequest(
-                                priority, roomID, requesterID, assigneeID, sanitationType, status));
+            addItem(
+                new SanitationRequest(
+                    priority, roomID, requesterID, assigneeID, sanitationType, status));
 
         if (!hadClearance) {
           // throw error saying that the user does not have permission to make the request.
@@ -121,10 +128,11 @@ public class SanitationController extends UIController {
   void saveToCSV(ActionEvent event) {
     super.saveToCSV(new SanitationRequest());
   }
+
   private boolean allFieldsFilled() {
     return !((sanitationBox.getValue().equals(""))
-            || priorityBox.getValue().equals("")
-            || locationBox.getValue().equals(""));
+        || priorityBox.getValue().equals("")
+        || locationBox.getValue().equals(""));
   }
 
   /** Adds new sanitationRequest to table of pending requests * */
@@ -157,12 +165,11 @@ public class SanitationController extends UIController {
 
     private void initializeInputs() {
       priorityBox.setItems(
-              FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
+          FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
       sanitationBox.setItems(
-              FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
+          FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
 
       locationBox.setItems((FXCollections.observableArrayList(getAllLongNames())));
     }
   }
-
 }

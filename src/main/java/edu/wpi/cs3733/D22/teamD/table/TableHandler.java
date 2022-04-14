@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Repeatable(MultiTable.class)
 public @interface TableHandler {
-    int table();
+  int table();
 
-    int col();
+  int col();
 }
