@@ -12,19 +12,19 @@ import javafx.scene.layout.VBox;
 
 public class SanitationController {
 
-  @FXML private TableColumn<?, ?> Assignee;
+  @FXML private TableColumn<?, String> Assignee;
 
-  @FXML private TableColumn<?, ?> Priority;
+  @FXML private TableColumn<?, String> Priority;
 
-  @FXML private TableColumn<?, ?> ReqID;
+  @FXML private TableColumn<?, String> ReqID;
 
-  @FXML private TableColumn<?, ?> Requester;
+  @FXML private TableColumn<?, String> Requester;
 
-  @FXML private TableColumn<?, ?> RoomID;
+  @FXML private TableColumn<?, String> RoomID;
 
-  @FXML private TableColumn<?, ?> Service;
+  @FXML private TableColumn<?, String> Service;
 
-  @FXML private TableColumn<?, ?> Status;
+  @FXML private TableColumn<?, String> Status;
 
   @FXML private Button clearButton;
 
@@ -32,13 +32,13 @@ public class SanitationController {
 
   @FXML private Button quitButton;
 
-  @FXML private JFXComboBox<?> locationBox;
+  @FXML private JFXComboBox<String> locationBox;
 
-  @FXML private TableView<?> pendingRequests;
+  @FXML private TableView<String> pendingRequests;
 
-  @FXML private JFXComboBox<?> priorityBox;
+  @FXML private JFXComboBox<String> priorityBox;
 
-  @FXML private JFXComboBox<?> sanitationBox;
+  @FXML private JFXComboBox<String> sanitationBox;
 
   @FXML private VBox sceneBox;
 
