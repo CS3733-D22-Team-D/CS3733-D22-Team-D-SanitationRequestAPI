@@ -3,7 +3,6 @@ package edu.wpi.cs3733.D22.teamD.controllers;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.backend.SecurityController;
 import edu.wpi.cs3733.D22.teamD.entities.Location;
 import edu.wpi.cs3733.D22.teamD.request.Request;
 import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
@@ -114,7 +113,7 @@ public class SanitationController extends AppController implements Initializable
     if (allFieldsFilled()) {
       Request.Priority priority = Request.Priority.valueOf(priorityBox.getValue());
       String roomID = locationBox.getValue();
-      String requesterID = SecurityController.getUser().getNodeID();
+      String requesterID = "null"; // SecurityController.getUser().getNodeID();
       String assigneeID = "null";
       String sanitationType = sanitationBox.getValue().toString();
       Request.RequestStatus status = Request.RequestStatus.REQUESTED;
@@ -172,6 +171,10 @@ public class SanitationController extends AppController implements Initializable
 
   /** Adds new sanitationRequest to table of pending requests * */
   private boolean addItem(SanitationRequest request) {
+    pendingRequests.getItems().add(request);
+    return true;
+
+    /* remove security clearance ===
     boolean hasClearance = false;
     try {
       hasClearance = sanitationRequestDAO.add(request);
@@ -183,6 +186,7 @@ public class SanitationController extends AppController implements Initializable
       pendingRequests.getItems().add(request);
     }
     return hasClearance;
+     */
   }
 
   public enum SanitationTypes {
