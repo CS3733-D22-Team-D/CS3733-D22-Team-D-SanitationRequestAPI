@@ -65,6 +65,8 @@ public class SanitationController implements Initializable {
   @FXML private StackPane windowContents;
   @FXML private Label errorLabel;
 
+  public static String locationID;
+
   DAO<SanitationRequest> sanitationRequestDAO;
   DAO<Location> locationDAO;
   DAO<Employee> employeeDAO;
@@ -98,6 +100,7 @@ public class SanitationController implements Initializable {
       throw new RuntimeException(e);
     }
     init.initializeTable();
+    locationBox.setValue(locationID);
   }
 
   @FXML
@@ -168,8 +171,10 @@ public class SanitationController implements Initializable {
       //  throw error message that all fields need to be filled
       errorLabel.setText("Error: One or more fields left empty");
     }
+    // TODO: REMOVE AFTER DEBUG
+    StartAPI startAPI = new StartAPI();
     try {
-      StartAPI.run(0, 0, 700, 500, null, null, null);
+      startAPI.run(0, 0, 500, 800, "edu/wpi/cs3733/D22/teamD/assets/style.css", "FHALL01401");
     } catch (ServiceException e) {
       e.printStackTrace();
     }
