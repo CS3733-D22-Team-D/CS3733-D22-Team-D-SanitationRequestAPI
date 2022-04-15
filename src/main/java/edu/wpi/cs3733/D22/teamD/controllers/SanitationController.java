@@ -53,7 +53,6 @@ public class SanitationController implements Initializable {
   @FXML private Button quitButton;
 
   /* JFX Combo Box */
-  @FXML private JFXComboBox<String> locationBox;
   @FXML private JFXComboBox<String> priorityBox;
   @FXML private JFXComboBox<String> sanitationBox;
   @FXML private JFXComboBox<String> requestBox;
@@ -100,14 +99,12 @@ public class SanitationController implements Initializable {
       throw new RuntimeException(e);
     }
     init.initializeTable();
-    locationBox.setValue(locationID);
   }
 
   @FXML
   void onClearClicked() {
     sanitationBox.setValue("");
     priorityBox.setValue("");
-    locationBox.setValue("");
     requestBox.setValue("");
     assignBox.setValue("");
   }
@@ -118,10 +115,10 @@ public class SanitationController implements Initializable {
    * @param locations list of locations
    * @return a list of long names as strings
    */
-  private List<String> getAllLongNames(List<Location> locations) {
+  private List<String> getAllNodeIDs(List<Location> locations) {
     List<String> names = new ArrayList<>();
     for (Location loc : locations) {
-      names.add(loc.getLongName());
+      names.add(loc.getNodeID());
     }
     return names;
   }
@@ -135,29 +132,48 @@ public class SanitationController implements Initializable {
   }
 
   @FXML
+  public void runAPI() {
+    // TODO: REMOVE AFTER DEBUG
+    StartAPI startAPI = new StartAPI();
+    try {
+      startAPI.run(0, 0, 500, 800, "edu/wpi/cs3733/D22/teamD/assets/style.css", "FSERV00101");
+    } catch (ServiceException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
   void onSubmitClicked(MouseEvent event) {
     if (allFieldsFilled()) {
       Request.Priority priority = Request.Priority.valueOf(priorityBox.getValue());
-      String roomID = locationBox.getValue();
+
+      /*
+      The location ID needs to be specified in the API run method, if running the jar directly the
+      location will display as "null"
+      */
+      String roomID;
+      if (locationID == null) roomID = "null";
+      else roomID = locationID;
+
       String requesterID = requestBox.getValue(); // SecurityController.getUser().getNodeID();
       String assigneeID = assignBox.getValue();
       String sanitationType = sanitationBox.getValue().toString();
       Request.RequestStatus status = Request.RequestStatus.REQUESTED;
 
       /*Make sure the room exists*/
-      boolean isALocation = false;
       Location location = new Location();
-      ArrayList<Location> locations = new ArrayList<>();
+      ArrayList<Location> locations;
       try {
         locations = (ArrayList<Location>) locationDAO.getAll();
       } catch (SQLException e) {
         e.printStackTrace();
+        System.err.println("Unable to access location database");
+        return;
       }
+      List<String> ids = getAllNodeIDs(locations);
+      ids.add("null"); // allows for an undetermined room to be displayed
 
-      location = locationDAO.filter(locations, 7, roomID).get(0);
-
-      isALocation = location.getAttribute(7).equals(roomID);
-      if (isALocation) {
+      if (ids.contains(roomID)) {
         errorLabel.setText("");
         onClearClicked();
         addItem(
@@ -170,13 +186,6 @@ public class SanitationController implements Initializable {
     } else {
       //  throw error message that all fields need to be filled
       errorLabel.setText("Error: One or more fields left empty");
-    }
-    // TODO: REMOVE AFTER DEBUG
-    StartAPI startAPI = new StartAPI();
-    try {
-      startAPI.run(0, 0, 500, 800, "edu/wpi/cs3733/D22/teamD/assets/style.css", "FHALL01401");
-    } catch (ServiceException e) {
-      e.printStackTrace();
     }
   }
 
@@ -207,7 +216,8 @@ public class SanitationController implements Initializable {
   private boolean allFieldsFilled() {
     return !((sanitationBox.getValue().equals(""))
         || priorityBox.getValue().equals("")
-        || locationBox.getValue().equals(""));
+        || assignBox.getValue().equals("")
+        || requestBox.getValue().equals(""));
   }
 
   /** Adds new sanitationRequest to table of pending requests * */
@@ -238,8 +248,6 @@ public class SanitationController implements Initializable {
           FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
       sanitationBox.setItems(
           FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
-      locationBox.setItems(
-          (FXCollections.observableArrayList(getAllLongNames(locationDAO.getAll()))));
       requestBox.setItems(
           (FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
       assignBox.setItems((FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
