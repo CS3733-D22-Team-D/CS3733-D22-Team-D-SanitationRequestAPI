@@ -42,5 +42,11 @@ public class StartAPI {
       throw new ServiceException();
     }
     Scene scene = new Scene(root);
+    primaryStage.setMinWidth(windowWidth);
+    primaryStage.setMinHeight(windowLength); // This hurts my brain
+    primaryStage.setScene(scene);
+    primaryStage.setX(xCoord);
+    primaryStage.setX(yCoord);
+    primaryStage.show();
   }
 }

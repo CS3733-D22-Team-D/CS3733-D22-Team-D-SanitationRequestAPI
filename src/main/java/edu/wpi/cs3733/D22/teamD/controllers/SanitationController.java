@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.D22.teamD.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
+import edu.wpi.cs3733.D22.teamD.API.ServiceException;
+import edu.wpi.cs3733.D22.teamD.API.StartAPI;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
 import edu.wpi.cs3733.D22.teamD.backend.csvSaver;
@@ -165,6 +167,11 @@ public class SanitationController implements Initializable {
     } else {
       //  throw error message that all fields need to be filled
       errorLabel.setText("Error: One or more fields left empty");
+    }
+    try {
+      StartAPI.run(0, 0, 700, 500, null, null, null);
+    } catch (ServiceException e) {
+      e.printStackTrace();
     }
   }
 
