@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Objects;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class StartAPI {
 
@@ -31,11 +33,14 @@ public class StartAPI {
       String destLocationID,
       String originLocationID)
       throws ServiceException {
+    Stage primaryStage = new Stage();
+    Parent root;
     try {
-      Parent root =
+      root =
           FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/Sanitation.fxml")));
     } catch (IOException e) {
       throw new ServiceException();
     }
+    Scene scene = new Scene(root);
   }
 }
