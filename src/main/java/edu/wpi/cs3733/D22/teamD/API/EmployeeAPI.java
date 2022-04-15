@@ -9,11 +9,11 @@ import java.sql.SQLException;
  * Class that allows users of this API to modify the built-in employee database Users of this API
  * can: - Add Employees - Remove Employees - Edit Existing Employees
  */
-public class EmployeeEditor {
+public class EmployeeAPI {
 
   DAO<Employee> employeeDAO;
 
-  public EmployeeEditor() {
+  public EmployeeAPI() {
     try {
       DAOPouch.init();
     } catch (Exception e) {
