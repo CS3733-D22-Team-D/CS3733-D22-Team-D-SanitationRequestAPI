@@ -4,6 +4,7 @@ import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
 import edu.wpi.cs3733.D22.teamD.entities.Employee;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Class that allows users of this API to modify the built-in employee database Users of this API
@@ -60,7 +61,21 @@ public class EmployeeAPI {
     try {
       this.employeeDAO.update(employee);
     } catch (SQLException e) {
-      System.err.println("Unable to edit the Employee");
+      throw new RuntimeException();
     }
+  }
+
+  /**
+   * get all employees in the database
+   * @return a list of employees
+   */
+  public List<Employee> getAllEmployees() {
+    List<Employee> employees;
+    try {
+      employees = this.employeeDAO.getAll();
+    } catch (SQLException e) {
+      throw new RuntimeException();
+    }
+    return employees;
   }
 }
