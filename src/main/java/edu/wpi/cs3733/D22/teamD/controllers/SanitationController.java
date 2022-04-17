@@ -132,7 +132,7 @@ public class SanitationController implements Initializable {
   }
 
   @FXML
-  public void runAPI() {
+  public void runAPI() throws ServiceException {
     // TODO: REMOVE AFTER DEBUG
     StartAPI startAPI = new StartAPI();
     try {
