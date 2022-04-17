@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class EmployeeAPI {
 
-  DAO<Employee> employeeDAO;
+  private DAO<Employee> employeeDAO;
 
   public EmployeeAPI() {
     try {
