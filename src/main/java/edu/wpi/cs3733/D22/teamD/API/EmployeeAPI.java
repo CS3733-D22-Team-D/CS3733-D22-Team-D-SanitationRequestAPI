@@ -67,6 +67,7 @@ public class EmployeeAPI {
 
   /**
    * get all employees in the database
+   *
    * @return a list of employees
    */
   public List<Employee> getAllEmployees() {

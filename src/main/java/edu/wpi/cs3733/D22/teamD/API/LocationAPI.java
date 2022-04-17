@@ -23,6 +23,7 @@ public class LocationAPI {
 
   /**
    * Add a location to the database
+   *
    * @param location location to add
    */
   public void addLocation(Location location) {
@@ -35,6 +36,7 @@ public class LocationAPI {
 
   /**
    * remove a location from the database
+   *
    * @param location location to remove
    */
   public void removeLocation(Location location) {
@@ -47,6 +49,7 @@ public class LocationAPI {
 
   /**
    * Get all locations in the database
+   *
    * @return a list of all locations
    */
   public List<Location> getAllLocations() {
@@ -58,5 +61,4 @@ public class LocationAPI {
     }
     return locations;
   }
-
 }

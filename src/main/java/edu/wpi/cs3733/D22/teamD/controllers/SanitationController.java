@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
-import edu.wpi.cs3733.D22.teamD.API.ServiceException;
-import edu.wpi.cs3733.D22.teamD.API.StartAPI;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
 import edu.wpi.cs3733.D22.teamD.backend.csvSaver;
@@ -131,9 +129,9 @@ public class SanitationController implements Initializable {
     return IDs;
   }
 
+  /* FOR DEBUG, EXAMPLE INSTANTIATION
   @FXML
   public void runAPI() throws ServiceException {
-    // TODO: REMOVE AFTER DEBUG
     StartAPI startAPI = new StartAPI();
     try {
       startAPI.run(0, 0, 500, 800, "edu/wpi/cs3733/D22/teamD/assets/style.css", "FSERV00101");
@@ -141,6 +139,7 @@ public class SanitationController implements Initializable {
       e.printStackTrace();
     }
   }
+   */
 
   @FXML
   void onSubmitClicked(MouseEvent event) {
