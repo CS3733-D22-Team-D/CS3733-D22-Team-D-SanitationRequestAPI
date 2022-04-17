@@ -33,6 +33,7 @@ public class EmployeeAPI {
       this.employeeDAO.add(employee);
     } catch (SQLException e) {
       System.err.println("Unable to add Employee to Database");
+      throw new RuntimeException(e);
     }
   }
 
