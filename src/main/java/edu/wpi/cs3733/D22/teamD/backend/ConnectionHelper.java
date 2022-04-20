@@ -14,6 +14,12 @@ public class ConnectionHelper {
     CLIENTSERVER
   }
 
+  static {
+    System.out.println("I am running hello!");
+    init();
+    switchToEmbedded();
+  }
+
   private ConnectionHelper() {}
 
   public static void init() {}
