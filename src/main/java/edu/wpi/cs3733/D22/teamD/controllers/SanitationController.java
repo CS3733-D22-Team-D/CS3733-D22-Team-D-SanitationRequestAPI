@@ -105,6 +105,7 @@ public class SanitationController implements Initializable {
     priorityBox.setValue("");
     requestBox.setValue("");
     assignBox.setValue("");
+    errorLabel.setText("");
   }
 
   /**
