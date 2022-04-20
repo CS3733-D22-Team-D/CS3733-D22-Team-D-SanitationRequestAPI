@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
 import edu.wpi.cs3733.D22.teamD.App;
-import edu.wpi.cs3733.D22.teamD.backend.ConnectionHandler;
 import edu.wpi.cs3733.D22.teamD.backend.DAO;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
 import edu.wpi.cs3733.D22.teamD.controllers.SanitationController;
@@ -21,8 +20,8 @@ public class StartAPI {
   DAO<Location> locationDAO;
 
   public StartAPI() throws ServiceException {
-    ConnectionHandler.init();
-    ConnectionHandler.switchToEmbedded();
+    // ConnectionHandler.init();
+    // ConnectionHandler.switchToEmbedded();
     try {
       DAOPouch.init();
     } catch (Exception e) {

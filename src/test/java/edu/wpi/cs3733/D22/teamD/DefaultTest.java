@@ -4,9 +4,7 @@
 
 package edu.wpi.cs3733.D22.teamD;
 
-import org.junit.Test;
-
-// import org.junit.jupiter.api.Test; (JUnit 5 equivalent)
+import org.junit.jupiter.api.Test;
 
 public class DefaultTest {
 
