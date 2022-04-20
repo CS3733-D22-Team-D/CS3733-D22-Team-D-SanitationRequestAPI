@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionHandler {
+public class ConnectionHelper {
   static Connection connection;
 
   static connectionType type;
@@ -18,7 +18,7 @@ public class ConnectionHandler {
     switchToEmbedded();
   }
 
-  private ConnectionHandler() {}
+  private ConnectionHelper() {}
 
   public static void init() {}
 

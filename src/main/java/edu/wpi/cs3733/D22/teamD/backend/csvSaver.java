@@ -35,7 +35,7 @@ public class csvSaver {
     String tableName = type.getTableName();
     String query = "SELECT * FROM " + tableName;
 
-    Statement stmt = ConnectionHandler.getConnection().createStatement();
+    Statement stmt = ConnectionHelper.getConnection().createStatement();
     ResultSet resultSet = stmt.executeQuery(query);
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     int numAttributes = resultSetMetaData.getColumnCount();

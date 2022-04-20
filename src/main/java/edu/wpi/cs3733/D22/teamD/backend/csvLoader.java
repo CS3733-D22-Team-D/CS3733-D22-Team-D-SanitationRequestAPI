@@ -25,7 +25,7 @@ public class csvLoader {
   private csvLoader() {}
 
   public static void loadAll() throws SQLException {
-    Statement stmt = ConnectionHandler.getConnection().createStatement();
+    Statement stmt = ConnectionHelper.getConnection().createStatement();
     filenames.forEach(
         (k, v) -> {
           //          System.out.println("Currently on " + v.getTableName());
@@ -56,7 +56,7 @@ public class csvLoader {
     String tableName = type.getTableName();
     String query = "SELECT * FROM " + tableName;
 
-    Statement stmt = ConnectionHandler.getConnection().createStatement();
+    Statement stmt = ConnectionHelper.getConnection().createStatement();
     ResultSet resultSet = stmt.executeQuery(query);
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     int numAttributes = resultSetMetaData.getColumnCount();
@@ -70,8 +70,8 @@ public class csvLoader {
     }
     updateStatement += "?)";
     PreparedStatement prepStmt =
-        ConnectionHandler.getConnection().prepareStatement(updateStatement);
-    PreparedStatement dropStmt = ConnectionHandler.getConnection().prepareStatement(drop);
+        ConnectionHelper.getConnection().prepareStatement(updateStatement);
+    PreparedStatement dropStmt = ConnectionHelper.getConnection().prepareStatement(drop);
     for (String[] line : entries) {
       if (KeyChecker.validID(type, line[0])) {
         dropStmt.setString(1, line[0]);

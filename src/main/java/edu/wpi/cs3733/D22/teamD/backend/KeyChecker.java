@@ -10,14 +10,14 @@ public class KeyChecker {
     String tableName = type.getTableName();
 
     String query = "SELECT * FROM " + tableName;
-    Statement stmt = ConnectionHandler.getConnection().createStatement();
+    Statement stmt = ConnectionHelper.getConnection().createStatement();
     ResultSet resultSet = stmt.executeQuery(query);
     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
     String columnName = resultSetMetaData.getColumnName(1);
     stmt.close();
 
     query = "SELECT count(*) AS num FROM " + tableName + " WHERE " + columnName + " = ?";
-    PreparedStatement prepStmt = ConnectionHandler.getConnection().prepareStatement(query);
+    PreparedStatement prepStmt = ConnectionHelper.getConnection().prepareStatement(query);
     prepStmt.setString(1, pk);
     ResultSet rset = prepStmt.executeQuery();
     rset.next();
