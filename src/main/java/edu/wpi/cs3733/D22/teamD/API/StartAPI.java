@@ -22,7 +22,7 @@ public class StartAPI {
 
   public StartAPI() throws ServiceException {
     ConnectionHandler.init();
-    ConnectionHandler.switchToEmbedded();
+    ConnectionHandler.switchToClientServer();
     try {
       DAOPouch.init();
     } catch (Exception e) {
