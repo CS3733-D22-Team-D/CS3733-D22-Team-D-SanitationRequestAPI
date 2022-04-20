@@ -15,6 +15,8 @@ public class ConnectionHelper {
   }
 
   static {
+    System.out.println("I am running hello!");
+    init();
     switchToEmbedded();
   }
 

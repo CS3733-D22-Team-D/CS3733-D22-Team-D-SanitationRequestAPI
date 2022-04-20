@@ -100,8 +100,7 @@ public class ORM<T extends TableObject> {
       updateStatement += "?,";
     }
     updateStatement += "?)";
-    PreparedStatement prepStmt =
-        ConnectionHelper.getConnection().prepareStatement(updateStatement);
+    PreparedStatement prepStmt = ConnectionHelper.getConnection().prepareStatement(updateStatement);
     if (!KeyChecker.validID(newTableObject, newTableObject.getAttribute(1))) {
       for (int i = 1; i <= numAttributes; i++) {
         prepStmt.setString(i, newTableObject.getAttribute(i));

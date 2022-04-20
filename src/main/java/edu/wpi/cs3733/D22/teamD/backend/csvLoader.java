@@ -69,8 +69,7 @@ public class csvLoader {
       updateStatement += "?,";
     }
     updateStatement += "?)";
-    PreparedStatement prepStmt =
-        ConnectionHelper.getConnection().prepareStatement(updateStatement);
+    PreparedStatement prepStmt = ConnectionHelper.getConnection().prepareStatement(updateStatement);
     PreparedStatement dropStmt = ConnectionHelper.getConnection().prepareStatement(drop);
     for (String[] line : entries) {
       if (KeyChecker.validID(type, line[0])) {
