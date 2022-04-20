@@ -20,9 +20,7 @@ public class ConnectionHandler {
 
   private ConnectionHandler() {}
 
-  public static void init() {
-
-  }
+  public static void init() {}
 
   public static connectionType getType() {
     return type;
