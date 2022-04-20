@@ -21,7 +21,7 @@ public class StartAPI {
   DAO<Location> locationDAO;
 
   public StartAPI() throws ServiceException {
-    ConnectionHandler.init();
+    //ConnectionHandler.init();
     ConnectionHandler.switchToEmbedded();
     try {
       DAOPouch.init();
