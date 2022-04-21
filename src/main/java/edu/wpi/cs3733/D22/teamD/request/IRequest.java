@@ -10,6 +10,7 @@ public interface IRequest {
   }
 
   enum Priority {
+    OVERDUE,
     LOW,
     MEDIUM,
     HIGH

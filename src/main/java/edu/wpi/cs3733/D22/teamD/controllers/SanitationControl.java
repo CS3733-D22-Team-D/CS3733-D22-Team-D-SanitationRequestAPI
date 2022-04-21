@@ -125,6 +125,7 @@ public class SanitationControl implements Initializable {
     primaryStage.setScene(scene);
     primaryStage.getScene().setRoot(root);
     primaryStage.setTitle("Team-D Sanitation Services API");
+
     try {
       primaryStage
           .getScene()
