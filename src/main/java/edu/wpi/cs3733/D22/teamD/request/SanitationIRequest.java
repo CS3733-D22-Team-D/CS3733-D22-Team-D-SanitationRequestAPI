@@ -1,10 +1,11 @@
 package edu.wpi.cs3733.D22.teamD.request;
 
-import edu.wpi.cs3733.D22.teamD.table.TableHandler;
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableHandle;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
+
 import java.time.LocalDateTime;
 
-public class SanitationRequest extends TableObject implements Request {
+public class SanitationIRequest extends TableObj implements IRequest {
 
   // TABLEOBJECT METHODS
   @Override
@@ -78,12 +79,12 @@ public class SanitationRequest extends TableObject implements Request {
 
   @Override
   public Object get() {
-    return new SanitationRequest();
+    return new SanitationIRequest();
   }
 
   @Override
   public String getRequestType() {
-    return "Sanitation Request";
+    return "Sanitation IRequest";
   }
 
   @Override
@@ -97,30 +98,30 @@ public class SanitationRequest extends TableObject implements Request {
   }
 
   // ATTRIBUTES
-  @TableHandler(table = 0, col = 0)
+  @TableHandle(table = 0, col = 0)
   private String nodeID;
 
-  @TableHandler(table = 0, col = 1)
+  @TableHandle(table = 0, col = 1)
   private Priority priority;
 
-  @TableHandler(table = 0, col = 2)
+  @TableHandle(table = 0, col = 2)
   private String roomID;
 
-  @TableHandler(table = 0, col = 3)
+  @TableHandle(table = 0, col = 3)
   private String requesterID;
 
-  @TableHandler(table = 0, col = 4)
+  @TableHandle(table = 0, col = 4)
   private String assigneeID;
 
-  @TableHandler(table = 0, col = 5)
+  @TableHandle(table = 0, col = 5)
   private String sanitationType;
 
-  @TableHandler(table = 0, col = 6)
+  @TableHandle(table = 0, col = 6)
   private RequestStatus cleanStatus;
 
   // CONSTRUCTOR
 
-  public SanitationRequest(
+  public SanitationIRequest(
       Priority priority,
       String roomID,
       String requesterID,
@@ -138,7 +139,7 @@ public class SanitationRequest extends TableObject implements Request {
     this.cleanStatus = cleanStatus;
   }
 
-  public SanitationRequest() {}
+  public SanitationIRequest() {}
 
   // SETTERS AND GETTERS
 

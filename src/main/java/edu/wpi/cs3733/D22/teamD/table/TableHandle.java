@@ -4,8 +4,8 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@Repeatable(MultiTable.class)
-public @interface TableHandler {
+@Repeatable(MultiTab.class)
+public @interface TableHandle {
   int table();
 
   int col();

@@ -1,24 +1,25 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAO;
+import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
+import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
+
 import java.sql.SQLException;
 import java.util.List;
 
 /** Allows for API users to access sanitation requests from the database */
 public class SanitationReqAPI {
 
-  private DAO<SanitationRequest> sanitationDAO;
+  private Dao<SanitationIRequest> sanitationDao;
 
   public SanitationReqAPI() {
     try {
       DAOPouch.init();
     } catch (Exception e) {
-      System.err.println("Unable to Init DAO");
+      System.err.println("Unable to Init Dao");
       e.printStackTrace();
     }
-    this.sanitationDAO = DAOPouch.getSanitationRequestDAO();
+    this.sanitationDao = DAOPouch.getSanitationRequestDAO();
   }
 
   /**
@@ -26,18 +27,18 @@ public class SanitationReqAPI {
    *
    * @return a list of all sanitation requests
    */
-  public List<SanitationRequest> getAllRequests() {
+  public List<SanitationIRequest> getAllRequests() {
     try {
-      return this.sanitationDAO.getAll();
+      return this.sanitationDao.getAll();
     } catch (SQLException e) {
       System.err.println("Database Error");
       throw new RuntimeException(e);
     }
   }
 
-  public void deleteRequest(SanitationRequest request) {
+  public void deleteRequest(SanitationIRequest request) {
     try {
-      this.sanitationDAO.delete(request);
+      this.sanitationDao.delete(request);
     } catch (SQLException e) {
       System.err.println("Database Error");
       throw new RuntimeException(e);

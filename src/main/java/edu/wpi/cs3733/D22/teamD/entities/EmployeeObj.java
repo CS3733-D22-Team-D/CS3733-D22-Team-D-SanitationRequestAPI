@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.D22.teamD.entities;
 
-import edu.wpi.cs3733.D22.teamD.table.TableHandler;
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableHandle;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
 
-public class Employee extends TableObject {
+public class EmployeeObj extends TableObj {
 
   // CLASS ENUMS
   public enum EmployeeType {
@@ -80,33 +80,33 @@ public class Employee extends TableObject {
 
   @Override
   public Object get() {
-    return new Employee();
+    return new EmployeeObj();
   }
 
   // ATTRIBUTES
-  @TableHandler(table = 0, col = 0)
+  @TableHandle(table = 0, col = 0)
   private String nodeID;
 
-  @TableHandler(table = 0, col = 1)
+  @TableHandle(table = 0, col = 1)
   private String firstName;
 
-  @TableHandler(table = 0, col = 2)
+  @TableHandle(table = 0, col = 2)
   private String lastName;
 
-  @TableHandler(table = 0, col = 3)
+  @TableHandle(table = 0, col = 3)
   private String dateOfBirth;
 
-  @TableHandler(table = 0, col = 4)
+  @TableHandle(table = 0, col = 4)
   private EmployeeType employeeType;
 
-  @TableHandler(table = 0, col = 5)
+  @TableHandle(table = 0, col = 5)
   private int securityClearance;
 
   // CONSTRUCTORS
 
-  public Employee() {}
+  public EmployeeObj() {}
 
-  public Employee(
+  public EmployeeObj(
       String firstName,
       String lastName,
       String dateOfBirth,

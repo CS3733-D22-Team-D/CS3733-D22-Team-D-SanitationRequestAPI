@@ -1,13 +1,8 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
 import edu.wpi.cs3733.D22.teamD.App;
-import edu.wpi.cs3733.D22.teamD.backend.DAO;
-import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.controllers.SanitationController;
-import edu.wpi.cs3733.D22.teamD.entities.Location;
+import edu.wpi.cs3733.D22.teamD.controllers.SanitationControl;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Objects;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,17 +11,7 @@ import javafx.stage.Stage;
 
 /** Class containing the method to start the API USE THE RUN METHOD TO START */
 public class StartAPI {
-
-  DAO<Location> locationDAO;
-
-  public StartAPI() throws ServiceException {
-    try {
-      DAOPouch.init();
-    } catch (Exception e) {
-      throw new ServiceException("There was an issue initializing the DAO object");
-    }
-    this.locationDAO = DAOPouch.getLocationDAO();
-  }
+  public StartAPI() {}
 
   /**
    * Allows for the API to be RUN
@@ -48,6 +33,8 @@ public class StartAPI {
       String destLocationID)
       throws ServiceException {
 
+    App.launch(App.class);
+
     Stage primaryStage = new Stage();
     Parent root;
     try {
@@ -57,15 +44,7 @@ public class StartAPI {
       throw new ServiceException("Unable to load FXML file");
     }
 
-    /* Check if the location that was entered was valid */
-    boolean validLocation;
-    try {
-      validLocation = checkForValidLocation(destLocationID);
-    } catch (SQLException e) {
-      throw new ServiceException("Error Connecting to Database");
-    }
-    if (validLocation) SanitationController.locationID = destLocationID;
-    else throw new ServiceException("The location ID did not match any present in the database");
+    SanitationControl.locationID = destLocationID;
 
     /* Set Window Attributes and display */
     Scene scene = new Scene(root);
@@ -89,18 +68,11 @@ public class StartAPI {
     primaryStage.show();
   }
 
-  /**
-   * Checks if a given location is present in the database
-   *
-   * @param locationID the location to be checked
-   * @return true if the location is in the database
-   * @throws SQLException Database error
-   */
-  public boolean checkForValidLocation(String locationID) throws SQLException {
-    List<Location> locationList = this.locationDAO.getAll();
-    for (Location l : locationList) {
-      if (l.getNodeID().equals(locationID)) return true;
+  public static void appLaunch() throws IOException {
+    try {
+      App.launch(App.class);
+    } catch (Exception e) {
+      SanitationControl.start(new Stage());
     }
-    return false;
   }
 }

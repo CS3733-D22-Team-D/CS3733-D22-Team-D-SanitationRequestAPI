@@ -1,33 +1,34 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
-import edu.wpi.cs3733.D22.teamD.entities.Employee;
-import edu.wpi.cs3733.D22.teamD.entities.Location;
-import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
+import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
+import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
+import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class DAOPouch {
-  private static DAO<SanitationRequest> sanitationRequestDAO;
-  private static DAO<Location> locationDAO;
-  private static DAO<Employee> employeeDAO;
+  private static Dao<SanitationIRequest> sanitationRequestDao;
+  private static Dao<LocationObj> locationDao;
+  private static Dao<EmployeeObj> employeeDao;
 
   private DAOPouch() {}
 
   public static void init() throws SQLException, IOException {
-    sanitationRequestDAO = new DAO<>(new SanitationRequest());
-    locationDAO = new DAO<>(new Location());
-    employeeDAO = new DAO<>(new Employee());
+    sanitationRequestDao = new Dao<>(new SanitationIRequest());
+    locationDao = new Dao<>(new LocationObj());
+    employeeDao = new Dao<>(new EmployeeObj());
   }
 
-  public static DAO<SanitationRequest> getSanitationRequestDAO() {
-    return sanitationRequestDAO;
+  public static Dao<SanitationIRequest> getSanitationRequestDAO() {
+    return sanitationRequestDao;
   }
 
-  public static DAO<Location> getLocationDAO() {
-    return locationDAO;
+  public static Dao<LocationObj> getLocationDAO() {
+    return locationDao;
   }
 
-  public static DAO<Employee> getEmployeeDAO() {
-    return employeeDAO;
+  public static Dao<EmployeeObj> getEmployeeDAO() {
+    return employeeDao;
   }
 }

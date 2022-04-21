@@ -2,8 +2,8 @@ package edu.wpi.cs3733.D22.teamD.table;
 
 import java.util.function.Supplier;
 
-public abstract class TableObject implements Supplier {
-  public TableObject() {}
+public abstract class TableObj implements Supplier {
+  public TableObj() {}
 
   public abstract String getTableInit();
 

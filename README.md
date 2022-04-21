@@ -13,15 +13,15 @@ the `StartAPI` class. In this method you must specify the following:
 * @param `windowWidth` width of the program window
 * @param `windowLength` height of the program window
 * @param `cssPath` path to CSS styling file
-* @param `destLocationID` location where the request is done
+* @param `destLocationID` locationObj where the request is done
 * @throws `ServiceException` if there are any error during instantiation
 
 Running this method will cause the FXML page to pop-up in a new window above your program.
 ## Interacting with the Database
 Using the Facade design pattern, this API abstracts database management to three different classes:
 
-* `EmployeeAPI` Allows for employees to be added, removed, or updated in the database
-* `LocationAPI` Allows for locations to be added or removed
+* `EmployeeAPI` Allows for employeeObjs to be added, removed, or updated in the database
+* `LocationAPI` Allows for locationObjs to be added or removed
 * `SanitationReqAPI` Can be used to get all requests or delete a specific request
 
 These classes allow for easy interaction with our database setup. Contact us with any questions. Most methods include JavaDocs in the source code. 

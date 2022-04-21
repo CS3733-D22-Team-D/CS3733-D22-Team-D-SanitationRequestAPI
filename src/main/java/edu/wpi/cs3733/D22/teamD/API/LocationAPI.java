@@ -1,15 +1,15 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAO;
+import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.entities.Location;
+import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
 import java.sql.SQLException;
 import java.util.List;
 
 /** Class that allows users to edit the location database */
 public class LocationAPI {
 
-  private DAO<Location> locationDAO;
+  private Dao<LocationObj> locationDao;
 
   public LocationAPI() {
     try {
@@ -18,30 +18,30 @@ public class LocationAPI {
       System.err.println("There was an error connecting to the database");
       throw new RuntimeException();
     }
-    this.locationDAO = DAOPouch.getLocationDAO();
+    this.locationDao = DAOPouch.getLocationDAO();
   }
 
   /**
-   * Add a location to the database
+   * Add a locationObj to the database
    *
-   * @param location location to add
+   * @param locationObj locationObj to add
    */
-  public void addLocation(Location location) {
+  public void addLocation(LocationObj locationObj) {
     try {
-      this.locationDAO.add(location);
+      this.locationDao.add(locationObj);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
 
   /**
-   * remove a location from the database
+   * remove a locationObj from the database
    *
-   * @param location location to remove
+   * @param locationObj locationObj to remove
    */
-  public void removeLocation(Location location) {
+  public void removeLocation(LocationObj locationObj) {
     try {
-      this.locationDAO.delete(location);
+      this.locationDao.delete(locationObj);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -52,13 +52,13 @@ public class LocationAPI {
    *
    * @return a list of all locations
    */
-  public List<Location> getAllLocations() {
-    List<Location> locations;
+  public List<LocationObj> getAllLocations() {
+    List<LocationObj> locationObjs;
     try {
-      locations = this.locationDAO.getAll();
+      locationObjs = this.locationDao.getAll();
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-    return locations;
+    return locationObjs;
   }
 }

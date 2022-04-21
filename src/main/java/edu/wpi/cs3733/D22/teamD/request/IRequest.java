@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.request;
 
-public interface Request {
+public interface IRequest {
 
   enum RequestStatus {
     REQUESTED,
@@ -15,7 +15,7 @@ public interface Request {
     HIGH
   }
 
-  /** @return name of the Request class */
+  /** @return name of the IRequest class */
   public String getRequestType();
 
   /** @return the priority of a given request */

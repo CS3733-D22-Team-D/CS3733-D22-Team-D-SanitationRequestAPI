@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
 import com.opencsv.CSVReader;
-import edu.wpi.cs3733.D22.teamD.entities.Employee;
-import edu.wpi.cs3733.D22.teamD.entities.Location;
-import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
+import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
+import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
@@ -12,17 +12,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class csvLoader {
+public class CSVLoader {
 
-  static HashMap<String, TableObject> filenames = new HashMap<>();
+  static HashMap<String, TableObj> filenames = new HashMap<>();
 
   static {
-    filenames.put("SanitationRequest", new SanitationRequest());
-    filenames.put("TowerLocations", new Location());
-    filenames.put("Employee", new Employee());
+    filenames.put("SanitationIRequest", new SanitationIRequest());
+    filenames.put("TowerLocations", new LocationObj());
+    filenames.put("EmployeeObj", new EmployeeObj());
   }
 
-  private csvLoader() {}
+  private CSVLoader() {}
 
   public static void loadAll() throws SQLException {
     Statement stmt = ConnectionHelper.getConnection().createStatement();
@@ -45,10 +45,10 @@ public class csvLoader {
     stmt.close();
   }
 
-  public static void load(TableObject type, String filename) throws IOException, SQLException {
+  public static void load(TableObj type, String filename) throws IOException, SQLException {
     InputStreamReader f =
         new InputStreamReader(
-            Objects.requireNonNull(csvLoader.class.getClassLoader().getResourceAsStream(filename)));
+            Objects.requireNonNull(CSVLoader.class.getClassLoader().getResourceAsStream(filename)));
     CSVReader read = new CSVReader(f);
     List<String[]> entries = read.readAll();
     if (entries.size() < 1) return;
@@ -72,7 +72,7 @@ public class csvLoader {
     PreparedStatement prepStmt = ConnectionHelper.getConnection().prepareStatement(updateStatement);
     PreparedStatement dropStmt = ConnectionHelper.getConnection().prepareStatement(drop);
     for (String[] line : entries) {
-      if (KeyChecker.validID(type, line[0])) {
+      if (KeyCheck.validID(type, line[0])) {
         dropStmt.setString(1, line[0]);
         dropStmt.executeUpdate();
       }

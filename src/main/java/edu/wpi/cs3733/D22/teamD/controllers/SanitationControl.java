@@ -1,25 +1,31 @@
 package edu.wpi.cs3733.D22.teamD.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
-import edu.wpi.cs3733.D22.teamD.backend.DAO;
+import edu.wpi.cs3733.D22.teamD.App;
+import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.backend.csvSaver;
-import edu.wpi.cs3733.D22.teamD.entities.Employee;
-import edu.wpi.cs3733.D22.teamD.entities.Location;
-import edu.wpi.cs3733.D22.teamD.request.Request;
-import edu.wpi.cs3733.D22.teamD.request.SanitationRequest;
-import edu.wpi.cs3733.D22.teamD.table.TableHelper;
+import edu.wpi.cs3733.D22.teamD.backend.CSVSaver;
+import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
+import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
+import edu.wpi.cs3733.D22.teamD.request.IRequest;
+import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
+import edu.wpi.cs3733.D22.teamD.table.TableHelp;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -30,20 +36,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class SanitationController implements Initializable {
+public class SanitationControl implements Initializable {
 
   /* Table and table helper */
-  @FXML private TableView<SanitationRequest> pendingRequests;
-  private TableHelper<SanitationRequest> helper;
+  @FXML private TableView<SanitationIRequest> pendingRequests;
+  private TableHelp<SanitationIRequest> helper;
 
   /* Table Cols */
-  @FXML private TableColumn<SanitationRequest, String> Assignee;
-  @FXML private TableColumn<SanitationRequest, String> Priority;
-  @FXML private TableColumn<SanitationRequest, String> ReqID;
-  @FXML private TableColumn<SanitationRequest, String> Requester;
-  @FXML private TableColumn<SanitationRequest, String> RoomID;
-  @FXML private TableColumn<SanitationRequest, String> Service;
-  @FXML private TableColumn<SanitationRequest, String> Status;
+  @FXML private TableColumn<SanitationIRequest, String> Assignee;
+  @FXML private TableColumn<SanitationIRequest, String> Priority;
+  @FXML private TableColumn<SanitationIRequest, String> ReqID;
+  @FXML private TableColumn<SanitationIRequest, String> Requester;
+  @FXML private TableColumn<SanitationIRequest, String> RoomID;
+  @FXML private TableColumn<SanitationIRequest, String> Service;
+  @FXML private TableColumn<SanitationIRequest, String> Status;
 
   /* Buttons */
   @FXML private Button clearButton;
@@ -64,9 +70,9 @@ public class SanitationController implements Initializable {
 
   public static String locationID;
 
-  DAO<SanitationRequest> sanitationRequestDAO;
-  DAO<Location> locationDAO;
-  DAO<Employee> employeeDAO;
+  Dao<SanitationIRequest> sanitationRequestDao;
+  Dao<LocationObj> locationDao;
+  Dao<EmployeeObj> employeeDao;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -78,13 +84,13 @@ public class SanitationController implements Initializable {
     onClearClicked();
     SanitationServiceInitializer init = new SanitationServiceInitializer();
 
-    sanitationRequestDAO = DAOPouch.getSanitationRequestDAO();
-    locationDAO = DAOPouch.getLocationDAO();
-    employeeDAO = DAOPouch.getEmployeeDAO();
+    sanitationRequestDao = DAOPouch.getSanitationRequestDAO();
+    locationDao = DAOPouch.getLocationDAO();
+    employeeDao = DAOPouch.getEmployeeDAO();
 
     try {
       // POPULATES TABLE
-      List<SanitationRequest> requestList = sanitationRequestDAO.getAll();
+      List<SanitationIRequest> requestList = sanitationRequestDao.getAll();
       pendingRequests.getItems().addAll(requestList);
     } catch (Exception e) {
       e.printStackTrace();
@@ -99,6 +105,18 @@ public class SanitationController implements Initializable {
     init.initializeTable();
   }
 
+  public static void start(Stage primaryStage) throws IOException {
+    Parent root =
+        FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/Sanitation.fxml")));
+    primaryStage.setMinWidth(780);
+    primaryStage.setMinHeight(548);
+    Scene scene = new Scene(root);
+    primaryStage.setScene(scene);
+    primaryStage.getScene().setRoot(root);
+    primaryStage.setTitle("Team-D Sanitation Services API");
+    primaryStage.show();
+  }
+
   @FXML
   void onClearClicked() {
     sanitationBox.setValue("");
@@ -109,22 +127,22 @@ public class SanitationController implements Initializable {
   }
 
   /**
-   * gets all long names from a list of locations
+   * gets all long names from a list of locationObjs
    *
-   * @param locations list of locations
+   * @param locationObjs list of locationObjs
    * @return a list of long names as strings
    */
-  private List<String> getAllNodeIDs(List<Location> locations) {
+  private List<String> getAllNodeIDs(List<LocationObj> locationObjs) {
     List<String> names = new ArrayList<>();
-    for (Location loc : locations) {
+    for (LocationObj loc : locationObjs) {
       names.add(loc.getNodeID());
     }
     return names;
   }
 
-  private List<String> getAllEmpNames(List<Employee> employees) {
+  private List<String> getAllEmpNames(List<EmployeeObj> employeeObjs) {
     List<String> IDs = new ArrayList<>();
-    for (Employee e : employees) {
+    for (EmployeeObj e : employeeObjs) {
       IDs.add(e.getNodeID() + " " + e.getFirstName() + " " + e.getLastName());
     }
     return IDs;
@@ -145,11 +163,11 @@ public class SanitationController implements Initializable {
   @FXML
   void onSubmitClicked(MouseEvent event) {
     if (allFieldsFilled()) {
-      Request.Priority priority = Request.Priority.valueOf(priorityBox.getValue());
+      IRequest.Priority priority = IRequest.Priority.valueOf(priorityBox.getValue());
 
       /*
-      The location ID needs to be specified in the API run method, if running the jar directly the
-      location will display as "null"
+      The locationObj ID needs to be specified in the API run method, if running the jar directly the
+      locationObj will display as "null"
       */
       String roomID;
       if (locationID == null) roomID = "null";
@@ -158,30 +176,30 @@ public class SanitationController implements Initializable {
       String requesterID = requestBox.getValue(); // SecurityController.getUser().getNodeID();
       String assigneeID = assignBox.getValue();
       String sanitationType = sanitationBox.getValue().toString();
-      Request.RequestStatus status = Request.RequestStatus.REQUESTED;
+      IRequest.RequestStatus status = IRequest.RequestStatus.REQUESTED;
 
       /*Make sure the room exists*/
-      Location location = new Location();
-      ArrayList<Location> locations;
+      LocationObj locationObj = new LocationObj();
+      ArrayList<LocationObj> locationObjs;
       try {
-        locations = (ArrayList<Location>) locationDAO.getAll();
+        locationObjs = (ArrayList<LocationObj>) locationDao.getAll();
       } catch (SQLException e) {
         e.printStackTrace();
-        System.err.println("Unable to access location database");
+        System.err.println("Unable to access locationObj database");
         return;
       }
-      List<String> ids = getAllNodeIDs(locations);
+      List<String> ids = getAllNodeIDs(locationObjs);
       ids.add("null"); // allows for an undetermined room to be displayed
 
       if (ids.contains(roomID)) {
         errorLabel.setText("");
         onClearClicked();
         addItem(
-            new SanitationRequest(
+            new SanitationIRequest(
                 priority, roomID, requesterID, assigneeID, sanitationType, status));
 
       } else {
-        errorLabel.setText("Error: Unknown Location");
+        errorLabel.setText("Error: Unknown LocationObj");
       }
     } else {
       //  throw error message that all fields need to be filled
@@ -191,7 +209,7 @@ public class SanitationController implements Initializable {
 
   @FXML
   void quitProgram(ActionEvent event) {
-    csvSaver.saveAll();
+    CSVSaver.saveAll();
     if (sceneBox != null && sceneBox.getScene() != null) {
       Stage window = (Stage) sceneBox.getScene().getWindow();
       if (window != null) window.close();
@@ -207,7 +225,7 @@ public class SanitationController implements Initializable {
     fileSys.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
     File csv = fileSys.showSaveDialog(window);
     try {
-      csvSaver.save(new SanitationRequest(), csv.getAbsolutePath());
+      CSVSaver.save(new SanitationIRequest(), csv.getAbsolutePath());
     } catch (Exception e) {
       System.err.println("Unable to save to CSV");
     }
@@ -221,9 +239,9 @@ public class SanitationController implements Initializable {
   }
 
   /** Adds new sanitationRequest to table of pending requests * */
-  private void addItem(SanitationRequest request) {
+  private void addItem(SanitationIRequest request) {
     try {
-      sanitationRequestDAO.add(request);
+      sanitationRequestDao.add(request);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -239,18 +257,18 @@ public class SanitationController implements Initializable {
 
   private class SanitationServiceInitializer {
     private void initializeTable() {
-      helper = new TableHelper<>(pendingRequests, 0);
-      helper.linkColumns(SanitationRequest.class);
+      helper = new TableHelp<>(pendingRequests, 0);
+      helper.linkColumns(SanitationIRequest.class);
     }
 
     private void initializeInputs() throws SQLException {
       priorityBox.setItems(
-          FXCollections.observableArrayList(TableHelper.convertEnum(Request.Priority.class)));
+          FXCollections.observableArrayList(TableHelp.convertEnum(IRequest.Priority.class)));
       sanitationBox.setItems(
-          FXCollections.observableArrayList(TableHelper.convertEnum(SanitationTypes.class)));
+          FXCollections.observableArrayList(TableHelp.convertEnum(SanitationTypes.class)));
       requestBox.setItems(
-          (FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
-      assignBox.setItems((FXCollections.observableArrayList(getAllEmpNames(employeeDAO.getAll()))));
+          (FXCollections.observableArrayList(getAllEmpNames(employeeDao.getAll()))));
+      assignBox.setItems((FXCollections.observableArrayList(getAllEmpNames(employeeDao.getAll()))));
     }
   }
 }

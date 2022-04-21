@@ -1,12 +1,13 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
+
 import java.sql.*;
 
-public class KeyChecker {
-  private KeyChecker() {}
+public class KeyCheck {
+  private KeyCheck() {}
 
-  public static boolean validID(TableObject type, String pk) throws SQLException {
+  public static boolean validID(TableObj type, String pk) throws SQLException {
     String tableName = type.getTableName();
 
     String query = "SELECT * FROM " + tableName;

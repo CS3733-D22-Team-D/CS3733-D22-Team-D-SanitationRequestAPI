@@ -14,13 +14,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
-public class TableHelper<R> {
+public class TableHelp<R> {
 
   private final TableView<R> table;
   private ObservableList<TableColumn<R, ?>> columns;
   private int tableNum;
 
-  public TableHelper(TableView<R> jfxTable, int tableNum) {
+  public TableHelp(TableView<R> jfxTable, int tableNum) {
     this.table = jfxTable;
     this.columns = jfxTable.getColumns();
     jfxTable.getColumns().forEach(e -> e.setReorderable(false));
@@ -30,15 +30,15 @@ public class TableHelper<R> {
   }
 
   /**
-   * Maps a class with associated TableHandler tags to columns Above fields,
-   * include @TableHandler(table=#,col=#)
+   * Maps a class with associated TableHandle tags to columns Above fields,
+   * include @TableHandle(table=#,col=#)
    *
    * @param type - (YOUR_REQUEST).class
    */
   public void linkColumns(Class<R> type) {
     for (Field f : type.getDeclaredFields()) {
       f.setAccessible(true);
-      TableHandler[] annotations = f.getAnnotationsByType(TableHandler.class);
+      TableHandle[] annotations = f.getAnnotationsByType(TableHandle.class);
 
       boolean match = false;
       int i;

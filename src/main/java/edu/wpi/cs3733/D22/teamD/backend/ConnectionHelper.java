@@ -34,13 +34,13 @@ public class ConnectionHelper {
 
   public static boolean switchToClientServer() {
     try {
-      csvSaver.saveAll();
+      CSVSaver.saveAll();
       Class.forName("org.apache.derby.jdbc.ClientDriver");
       System.out.println("Connecting to client");
       connection =
           DriverManager.getConnection("jdbc:derby://localhost:1527/BaW_Database;create=true");
       System.out.println("Connected to the client server");
-      csvLoader.loadAll();
+      CSVLoader.loadAll();
       type = connectionType.CLIENTSERVER;
     } catch (SQLException e) {
       System.out.println("Could not connect to the client server, reverting back to embedded");
@@ -62,12 +62,12 @@ public class ConnectionHelper {
   public static boolean switchToEmbedded() {
     try {
       if (connection != null) {
-        csvSaver.saveAll();
+        CSVSaver.saveAll();
       }
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
       System.out.println("Connecting to embedded");
       connection = DriverManager.getConnection("jdbc:derby:BaW_database;create = true");
-      csvLoader.loadAll();
+      CSVLoader.loadAll();
       System.out.println("Connected to the embedded server");
       type = connectionType.EMBEDDED;
     } catch (SQLException e) {

@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
 import com.opencsv.CSVWriter;
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,11 +10,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class csvSaver {
-  private csvSaver() {}
+public class CSVSaver {
+  private CSVSaver() {}
 
   public static void saveAll() {
-    csvLoader.filenames.forEach(
+    CSVLoader.filenames.forEach(
         (k, v) -> {
           try {
             save(v, k + "_save.csv");
@@ -26,7 +26,7 @@ public class csvSaver {
         });
   }
 
-  public static void save(TableObject type, String filename) throws SQLException, IOException {
+  public static void save(TableObj type, String filename) throws SQLException, IOException {
     File file = new File(filename);
     FileWriter outputFile = new FileWriter(file);
     CSVWriter writer =

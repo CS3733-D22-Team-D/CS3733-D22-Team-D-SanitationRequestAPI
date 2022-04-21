@@ -1,8 +1,9 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAO;
+import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
-import edu.wpi.cs3733.D22.teamD.entities.Employee;
+import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,54 +13,54 @@ import java.util.List;
  */
 public class EmployeeAPI {
 
-  private DAO<Employee> employeeDAO;
+  private Dao<EmployeeObj> employeeDao;
 
   public EmployeeAPI() {
     try {
       DAOPouch.init();
     } catch (Exception e) {
-      System.err.println("Unable to Init DAO");
+      System.err.println("Unable to Init Dao");
       e.printStackTrace();
     }
-    this.employeeDAO = DAOPouch.getEmployeeDAO();
+    this.employeeDao = DAOPouch.getEmployeeDAO();
   }
 
   /**
-   * Add a given employee to the database
+   * Add a given employeeObj to the database
    *
-   * @param employee to be added
+   * @param employeeObj to be added
    */
-  public void addEmployee(Employee employee) {
+  public void addEmployee(EmployeeObj employeeObj) {
     try {
-      this.employeeDAO.add(employee);
+      this.employeeDao.add(employeeObj);
     } catch (SQLException e) {
-      System.err.println("Unable to add Employee to Database");
+      System.err.println("Unable to add EmployeeObj to Database");
       throw new RuntimeException(e);
     }
   }
 
   /**
-   * Remove a given employee to the database
+   * Remove a given employeeObj to the database
    *
-   * @param employee to be removed
+   * @param employeeObj to be removed
    */
-  public void removeEmployee(Employee employee) {
+  public void removeEmployee(EmployeeObj employeeObj) {
     try {
-      this.employeeDAO.delete(employee);
+      this.employeeDao.delete(employeeObj);
     } catch (SQLException e) {
-      System.err.println("Unable to delete Employee to Database");
+      System.err.println("Unable to delete EmployeeObj to Database");
     }
   }
 
   /**
-   * Allows for an employee to be modified
+   * Allows for an employeeObj to be modified
    *
-   * @param employee employee to be edited
-   * @param newEmployee new employee with updated attributes
+   * @param employeeObj employeeObj to be edited
+   * @param newEmployeeObj new employeeObj with updated attributes
    */
-  public void modifyEmployee(Employee employee, Employee newEmployee) {
+  public void modifyEmployee(EmployeeObj employeeObj, EmployeeObj newEmployeeObj) {
     try {
-      this.employeeDAO.update(employee);
+      this.employeeDao.update(employeeObj);
     } catch (SQLException e) {
       throw new RuntimeException();
     }
@@ -70,13 +71,13 @@ public class EmployeeAPI {
    *
    * @return a list of employees
    */
-  public List<Employee> getAllEmployees() {
-    List<Employee> employees;
+  public List<EmployeeObj> getAllEmployees() {
+    List<EmployeeObj> employeeObjs;
     try {
-      employees = this.employeeDAO.getAll();
+      employeeObjs = this.employeeDao.getAll();
     } catch (SQLException e) {
       throw new RuntimeException();
     }
-    return employees;
+    return employeeObjs;
   }
 }

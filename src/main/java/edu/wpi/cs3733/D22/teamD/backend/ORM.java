@@ -1,13 +1,13 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ORM<T extends TableObject> {
+public class ORM<T extends TableObj> {
 
   Supplier<T> supplier;
   int numAttributes;
@@ -101,7 +101,7 @@ public class ORM<T extends TableObject> {
     }
     updateStatement += "?)";
     PreparedStatement prepStmt = ConnectionHelper.getConnection().prepareStatement(updateStatement);
-    if (!KeyChecker.validID(newTableObject, newTableObject.getAttribute(1))) {
+    if (!KeyCheck.validID(newTableObject, newTableObject.getAttribute(1))) {
       for (int i = 1; i <= numAttributes; i++) {
         prepStmt.setString(i, newTableObject.getAttribute(i));
       }

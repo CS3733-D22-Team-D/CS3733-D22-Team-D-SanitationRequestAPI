@@ -1,43 +1,44 @@
 package edu.wpi.cs3733.D22.teamD.entities;
 
-import edu.wpi.cs3733.D22.teamD.table.TableHandler;
-import edu.wpi.cs3733.D22.teamD.table.TableObject;
+import edu.wpi.cs3733.D22.teamD.table.TableHandle;
+import edu.wpi.cs3733.D22.teamD.table.TableObj;
+
 import java.lang.reflect.Array;
 
-public class Location extends TableObject {
+public class LocationObj extends TableObj {
 
-  @TableHandler(table = 2, col = 0)
-  @TableHandler(table = 0, col = 0)
+  @TableHandle(table = 2, col = 0)
+  @TableHandle(table = 0, col = 0)
   private String nodeID;
 
-  @TableHandler(table = 0, col = 1)
+  @TableHandle(table = 0, col = 1)
   private int xcoord = -1;
 
-  @TableHandler(table = 0, col = 2)
+  @TableHandle(table = 0, col = 2)
   private int ycoord = -1;
 
-  @TableHandler(table = 2, col = 1)
-  @TableHandler(table = 0, col = 3)
+  @TableHandle(table = 2, col = 1)
+  @TableHandle(table = 0, col = 3)
   private String floor = "unknown";
 
-  @TableHandler(table = 2, col = 2)
-  @TableHandler(table = 0, col = 4)
+  @TableHandle(table = 2, col = 2)
+  @TableHandle(table = 0, col = 4)
   private String building = "unknown";
 
-  @TableHandler(table = 2, col = 3)
-  @TableHandler(table = 0, col = 5)
+  @TableHandle(table = 2, col = 3)
+  @TableHandle(table = 0, col = 5)
   private String nodeType = "unassigned";
 
-  @TableHandler(table = 2, col = 4)
-  @TableHandler(table = 0, col = 6)
+  @TableHandle(table = 2, col = 4)
+  @TableHandle(table = 0, col = 6)
   private String longName = "room";
 
-  @TableHandler(table = 0, col = 7)
+  @TableHandle(table = 0, col = 7)
   private String shortName = "r";
 
-  public Location() {}
+  public LocationObj() {}
 
-  public Location(
+  public LocationObj(
       String nodeID,
       int xcoord,
       int ycoord,
@@ -55,8 +56,8 @@ public class Location extends TableObject {
     this.longName = longName;
     this.shortName = shortName;
   }
-  // TableObject Implementation
-  public Location(Array[] attributes) {}
+  // TableObj Implementation
+  public LocationObj(Array[] attributes) {}
 
   public int getNumAttributes() {
     return 8;
@@ -132,7 +133,7 @@ public class Location extends TableObject {
   }
 
   // Generic Setters and Getters
-  public Location(String nodeID) {
+  public LocationObj(String nodeID) {
     this.nodeID = nodeID;
   }
 
@@ -202,7 +203,7 @@ public class Location extends TableObject {
 
   @Override
   public Object get() {
-    return new Location();
+    return new LocationObj();
   }
 
   public String toString() {
@@ -224,7 +225,7 @@ public class Location extends TableObject {
         + "\n";
   }
 
-  public boolean equals(Location l) {
+  public boolean equals(LocationObj l) {
     return l.getNodeID().equals(this.nodeID);
   }
 }
