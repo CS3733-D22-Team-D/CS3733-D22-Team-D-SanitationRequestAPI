@@ -68,6 +68,11 @@ public class SanitationControl implements Initializable {
   @FXML private StackPane windowContents;
   @FXML private Label errorLabel;
 
+  public static int xCoord;
+  public static int yCoord;
+  public static int windowWidth;
+  public static int windowLength;
+  public static String cssPath;
   public static String locationID;
 
   Dao<SanitationIRequest> sanitationRequestDao;
@@ -108,12 +113,24 @@ public class SanitationControl implements Initializable {
   public static void start(Stage primaryStage) throws IOException {
     Parent root =
         FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/Sanitation.fxml")));
-    primaryStage.setMinWidth(780);
-    primaryStage.setMinHeight(548);
+    primaryStage.setMinWidth(windowLength);
+    primaryStage.setMinHeight(windowWidth);
+    primaryStage.setX(xCoord);
+    primaryStage.setY(yCoord);
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.getScene().setRoot(root);
     primaryStage.setTitle("Team-D Sanitation Services API");
+    try {
+      primaryStage
+          .getScene()
+          .getStylesheets()
+          .add(
+              Objects.requireNonNull(SanitationControl.class.getClassLoader().getResource(cssPath))
+                  .toString());
+    } catch (Exception e) {
+      System.err.println("Could not find CSS path");
+    }
     primaryStage.show();
   }
 
