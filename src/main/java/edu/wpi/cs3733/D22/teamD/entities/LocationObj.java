@@ -2,7 +2,6 @@ package edu.wpi.cs3733.D22.teamD.entities;
 
 import edu.wpi.cs3733.D22.teamD.table.TableHandle;
 import edu.wpi.cs3733.D22.teamD.table.TableObj;
-
 import java.lang.reflect.Array;
 
 public class LocationObj extends TableObj {

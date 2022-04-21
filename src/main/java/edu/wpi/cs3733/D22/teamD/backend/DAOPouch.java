@@ -3,7 +3,6 @@ package edu.wpi.cs3733.D22.teamD.backend;
 import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
 import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
 import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
-
 import java.io.IOException;
 import java.sql.SQLException;
 

@@ -17,8 +17,8 @@ public class CSVLoader {
   static HashMap<String, TableObj> filenames = new HashMap<>();
 
   static {
-    filenames.put("SanitationIRequest", new SanitationIRequest());
-    filenames.put("TowerLocations", new LocationObj());
+    filenames.put("SanitationRequestObj", new SanitationIRequest());
+    filenames.put("TowerLocationsObj", new LocationObj());
     filenames.put("EmployeeObj", new EmployeeObj());
   }
 

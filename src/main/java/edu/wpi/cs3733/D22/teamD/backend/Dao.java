@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
 import edu.wpi.cs3733.D22.teamD.table.TableObj;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
