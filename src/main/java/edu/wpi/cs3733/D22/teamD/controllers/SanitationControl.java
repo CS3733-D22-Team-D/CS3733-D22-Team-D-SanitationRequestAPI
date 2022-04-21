@@ -3,7 +3,7 @@ package edu.wpi.cs3733.D22.teamD.controllers;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.D22.teamD.App;
 import edu.wpi.cs3733.D22.teamD.backend.CSVSaver;
-import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.backend.DAOFacade;
 import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
 import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
@@ -82,16 +82,16 @@ public class SanitationControl implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
       e.printStackTrace();
     }
     onClearClicked();
     SanitationServiceInitializer init = new SanitationServiceInitializer();
 
-    sanitationRequestDao = DAOPouch.getSanitationRequestDAO();
-    locationDao = DAOPouch.getLocationDAO();
-    employeeDao = DAOPouch.getEmployeeDAO();
+    sanitationRequestDao = DAOFacade.getSanitationRequestDAO();
+    locationDao = DAOFacade.getLocationDAO();
+    employeeDao = DAOFacade.getEmployeeDAO();
 
     try {
       // POPULATES TABLE

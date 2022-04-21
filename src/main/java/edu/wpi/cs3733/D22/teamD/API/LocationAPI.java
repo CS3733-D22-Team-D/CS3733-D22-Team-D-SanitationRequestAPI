@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.backend.DAOFacade;
 import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.entities.LocationObj;
 import java.sql.SQLException;
@@ -13,12 +13,12 @@ public class LocationAPI {
 
   public LocationAPI() {
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
       System.err.println("There was an error connecting to the database");
       throw new RuntimeException();
     }
-    this.locationDao = DAOPouch.getLocationDAO();
+    this.locationDao = DAOFacade.getLocationDAO();
   }
 
   /**

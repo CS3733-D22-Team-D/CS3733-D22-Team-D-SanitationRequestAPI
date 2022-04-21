@@ -50,9 +50,9 @@ public class ConnectionHelper {
       return false;
     }
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
-      System.out.println("DAOPouch could not initialize");
+      System.out.println("DAOFacade could not initialize");
     }
     return true;
   }
@@ -80,9 +80,9 @@ public class ConnectionHelper {
       return false;
     }
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
-      System.out.println("DAOPouch could not initialize");
+      System.out.println("DAOFacade could not initialize");
     }
     return true;
   }
