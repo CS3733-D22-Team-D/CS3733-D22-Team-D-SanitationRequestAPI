@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class ORM<T extends TableObj> {
+public class Orm<T extends TableObj> {
 
   Supplier<T> supplier;
   int numAttributes;
@@ -15,7 +15,7 @@ public class ORM<T extends TableObj> {
   ArrayList<String> columnNames = new ArrayList<>();
   String initString;
 
-  public ORM(T type) throws SQLException, IOException {
+  public Orm(T type) throws SQLException, IOException {
     this.supplier = type;
     initString = type.getTableInit();
     tableName = type.getTableName();
@@ -36,7 +36,7 @@ public class ORM<T extends TableObj> {
     stmt.close();
   }
 
-  public ORM(T type, String filename) throws SQLException, IOException {
+  public Orm(T type, String filename) throws SQLException, IOException {
     this.supplier = type;
     initString = type.getTableInit();
     tableName = type.getTableName();

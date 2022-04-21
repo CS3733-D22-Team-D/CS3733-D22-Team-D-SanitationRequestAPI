@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dao<T extends TableObj> {
-  ORM<T> orm;
+  Orm<T> orm;
   TableObj type;
 
   /**
@@ -18,7 +18,7 @@ public class Dao<T extends TableObj> {
    * @throws IOException
    */
   public Dao(T type) throws SQLException, IOException {
-    orm = new ORM<T>(type);
+    orm = new Orm<T>(type);
     this.type = type;
   }
 
@@ -31,7 +31,7 @@ public class Dao<T extends TableObj> {
    * @throws IOException
    */
   public Dao(T type, String filename) throws SQLException, IOException {
-    orm = new ORM<T>(type, filename);
+    orm = new Orm<T>(type, filename);
     this.type = type;
   }
 
