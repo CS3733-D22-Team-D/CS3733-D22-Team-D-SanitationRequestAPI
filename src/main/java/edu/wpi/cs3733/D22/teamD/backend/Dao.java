@@ -1,44 +1,44 @@
 package edu.wpi.cs3733.D22.teamD.backend;
 
-import edu.wpi.cs3733.D22.teamD.table.TableObj;
+import edu.wpi.cs3733.D22.teamD.table.TableObject;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dao<T extends TableObj> {
-  ORM<T> orm;
-  TableObj type;
+public class DAO<T extends TableObject> {
+  Orm<T> orm;
+  TableObject type;
 
   /**
-   * Creates a basic Dao which connects to the database
+   * Creates a basic DAO which connects to the database
    *
-   * @param type : The table / TableObj you wish to connect to and access
+   * @param type : The table / TableObject you wish to connect to and access
    * @throws SQLException
    * @throws IOException
    */
-  public Dao(T type) throws SQLException, IOException {
-    orm = new ORM<T>(type);
+  public DAO(T type) throws SQLException, IOException {
+    orm = new Orm<T>(type);
     this.type = type;
   }
 
   /**
-   * Creates a basic Dao and populates / updates it using the filename given
+   * Creates a basic DAO and populates / updates it using the filename given
    *
-   * @param type : Table / TableObj you wish to use and update
+   * @param type : Table / TableObject you wish to use and update
    * @param filename : Filename you wish to grab your data from
    * @throws SQLException
    * @throws IOException
    */
-  public Dao(T type, String filename) throws SQLException, IOException {
-    orm = new ORM<T>(type, filename);
+  public DAO(T type, String filename) throws SQLException, IOException {
+    orm = new Orm<T>(type, filename);
     this.type = type;
   }
 
   /**
    * Returns a list of everything in the table
    *
-   * @return : a List of TableObjects for the type you set up the Dao with
+   * @return : a List of TableObjects for the type you set up the DAO with
    * @throws SQLException
    */
   public List<T> getAll() throws SQLException {
@@ -46,7 +46,7 @@ public class Dao<T extends TableObj> {
   }
 
   /**
-   * Gets a singular instance of the TableObj using its primaryKey
+   * Gets a singular instance of the TableObject using its primaryKey
    *
    * @param primaryKey : the nodeID / ID String you wanted to find
    * @return
@@ -57,7 +57,7 @@ public class Dao<T extends TableObj> {
   }
 
   /**
-   * Updates the current TableObj you send in into the database
+   * Updates the current TableObject you send in into the database
    *
    * @param type : the object you wish to update
    * @throws SQLException
@@ -67,9 +67,9 @@ public class Dao<T extends TableObj> {
   }
 
   /**
-   * Deletes the occurrence for the TableObj you send in
+   * Deletes the occurrence for the TableObject you send in
    *
-   * @param type : the TableObj you wish to delete
+   * @param type : the TableObject you wish to delete
    * @throws SQLException
    */
   public void delete(T type) throws SQLException {
@@ -77,7 +77,7 @@ public class Dao<T extends TableObj> {
   }
 
   /**
-   * Adds the TableObj type into the database
+   * Adds the TableObject type into the database
    *
    * @param type
    * @throws SQLException
@@ -87,13 +87,13 @@ public class Dao<T extends TableObj> {
   }
 
   /**
-   * Saves the current TableObj's table into the CSV file you input
+   * Saves the current TableObject's table into the CSV file you input
    *
    * @param filename : save file name
    */
   public void save(String filename) {
     try {
-      CSVSaver.save(type, filename);
+      csvSaver.save(type, filename);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -106,7 +106,7 @@ public class Dao<T extends TableObj> {
    */
   public void load(String filename) {
     try {
-      CSVLoader.load(type, filename);
+      csvLoader.load(type, filename);
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.backend.DAOFacade;
 import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
 import java.sql.SQLException;
@@ -13,12 +13,12 @@ public class SanitationReqAPI {
 
   public SanitationReqAPI() {
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
       System.err.println("Unable to Init Dao");
       e.printStackTrace();
     }
-    this.sanitationDao = DAOPouch.getSanitationRequestDAO();
+    this.sanitationDao = DAOFacade.getSanitationRequestDAO();
   }
 
   /**

@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.D22.teamD.API;
 
-import edu.wpi.cs3733.D22.teamD.backend.DAOPouch;
+import edu.wpi.cs3733.D22.teamD.backend.DAOFacade;
 import edu.wpi.cs3733.D22.teamD.backend.Dao;
 import edu.wpi.cs3733.D22.teamD.entities.EmployeeObj;
 import java.sql.SQLException;
@@ -16,12 +16,12 @@ public class EmployeeAPI {
 
   public EmployeeAPI() {
     try {
-      DAOPouch.init();
+      DAOFacade.init();
     } catch (Exception e) {
       System.err.println("Unable to Init Dao");
       e.printStackTrace();
     }
-    this.employeeDao = DAOPouch.getEmployeeDAO();
+    this.employeeDao = DAOFacade.getEmployeeDAO();
   }
 
   /**

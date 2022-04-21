@@ -6,12 +6,12 @@ import edu.wpi.cs3733.D22.teamD.request.SanitationIRequest;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class DAOPouch {
+public class DAOFacade {
   private static Dao<SanitationIRequest> sanitationRequestDao;
   private static Dao<LocationObj> locationDao;
   private static Dao<EmployeeObj> employeeDao;
 
-  private DAOPouch() {}
+  private DAOFacade() {}
 
   public static void init() throws SQLException, IOException {
     sanitationRequestDao = new Dao<>(new SanitationIRequest());
