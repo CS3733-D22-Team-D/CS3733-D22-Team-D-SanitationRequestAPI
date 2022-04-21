@@ -110,10 +110,11 @@ public class SanitationControl implements Initializable {
   }
 
   public static void start(Stage primaryStage) throws IOException {
-    primaryStage.setOnCloseRequest(e->{
-      CSVSaver.saveAll();
-      primaryStage.close();
-    });
+    primaryStage.setOnCloseRequest(
+        e -> {
+          CSVSaver.saveAll();
+          primaryStage.close();
+        });
     Parent root =
         FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/Sanitation.fxml")));
     primaryStage.setMinWidth(windowLength);
