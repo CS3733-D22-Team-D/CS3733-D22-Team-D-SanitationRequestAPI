@@ -207,7 +207,6 @@ public class SanitationControl implements Initializable {
         addItem(
             new SanitationIRequest(
                 priority, roomID, requesterID, assigneeID, sanitationType, status));
-
       } else {
         errorLabel.setText("Error: Unknown LocationObj");
       }
