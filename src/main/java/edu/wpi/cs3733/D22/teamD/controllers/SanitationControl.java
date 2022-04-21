@@ -165,18 +165,6 @@ public class SanitationControl implements Initializable {
     return IDs;
   }
 
-  /* FOR DEBUG, EXAMPLE INSTANTIATION
-  @FXML
-  public void runAPI() throws ServiceException {
-    StartAPI startAPI = new StartAPI();
-    try {
-      startAPI.run(0, 0, 500, 800, "edu/wpi/cs3733/D22/teamD/assets/style.css", "FSERV00101");
-    } catch (ServiceException e) {
-      e.printStackTrace();
-    }
-  }
-   */
-
   @FXML
   void onSubmitClicked(MouseEvent event) {
     if (allFieldsFilled()) {
@@ -232,7 +220,6 @@ public class SanitationControl implements Initializable {
       if (window != null) window.close();
     }
     Platform.exit();
-    System.exit(0);
   }
 
   @FXML
