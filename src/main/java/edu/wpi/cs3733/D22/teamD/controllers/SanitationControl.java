@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,6 +110,10 @@ public class SanitationControl implements Initializable {
   }
 
   public static void start(Stage primaryStage) throws IOException {
+    primaryStage.setOnCloseRequest(e->{
+      CSVSaver.saveAll();
+      primaryStage.close();
+    });
     Parent root =
         FXMLLoader.load(Objects.requireNonNull(App.class.getResource("views/Sanitation.fxml")));
     primaryStage.setMinWidth(windowLength);
@@ -219,7 +222,6 @@ public class SanitationControl implements Initializable {
       Stage window = (Stage) sceneBox.getScene().getWindow();
       if (window != null) window.close();
     }
-    Platform.exit();
   }
 
   @FXML
